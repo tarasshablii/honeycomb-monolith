@@ -1,0 +1,14 @@
+plugins {
+    id "org.springframework.boot" version "$springBootVersion"
+}
+
+dependencies {
+}
+
+springBoot {
+    mainClass = "dev.tarasshablii.initiatives.Application"
+}
+
+test {
+
+}

@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+
+group 'dev.tarasshablii'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    group 'dev.tarasshablii'
+    version '1.0-SNAPSHOT'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
+        annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor:$springBootVersion"
+        annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        compileOnly "org.projectlombok:lombok:$lombokVersion"
+
+        implementation "org.springframework.boot:spring-boot-starter:$springBootVersion"
+        implementation "org.mapstruct:mapstruct:$mapstructVersion"
+
+        testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+    }
+
+    tasks.withType(Test).tap {
+        configureEach {
+            useJUnitPlatform()
+        }
+    }
+}
