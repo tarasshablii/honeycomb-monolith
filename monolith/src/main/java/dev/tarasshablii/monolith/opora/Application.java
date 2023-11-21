@@ -1,4 +1,4 @@
-package dev.tarasshablii.monolith;
+package dev.tarasshablii.monolith.opora;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

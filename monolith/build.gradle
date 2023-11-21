@@ -1,12 +1,92 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
 plugins {
     id "org.springframework.boot" version "$springBootVersion"
+    id "io.spring.dependency-management" version "$springDependencyManagementVersion"
+    id "org.openapi.generator" version "$openApiGeneratorVersion"
 }
 
+sourceSets.main.java.srcDirs += "$buildDir/generated/src/main/java"
+
 dependencies {
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation "org.keycloak:keycloak-spring-boot-starter:$keycloackStarterVersion"
+//    implementation 'org.flywaydb:flyway-core'
+//    implementation 'org.springframework.modulith:spring-modulith-starter-core'
+//    implementation 'org.springframework.modulith:spring-modulith-starter-jpa'
+//    implementation 'org.springframework.modulith:spring-modulith-starter-mongodb'
+
+    implementation "org.postgresql:postgresql:$postgresqlVersion"
+    implementation "org.apache.commons:commons-collections4:$commonsCollectionsVersion"
+
+    implementation "org.openapitools:jackson-databind-nullable:$openapiJacksonDatabindNullableVersion"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocWebmvcUiVersion"
+
+//    testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
+    testImplementation 'org.testcontainers:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:junit-jupiter'
+
+    // Overriding to avoid vulnerability
+    implementation "org.yaml:snakeyaml:$snakeYamlVersion"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.modulith:spring-modulith-bom:$springModulithVersion"
+    }
 }
 
 springBoot {
-    mainClass = "dev.tarasshablii.monolith.Application"
+    mainClass = "dev.tarasshablii.monolith.opora.Application"
+}
+
+task openApiGenerateServer(type: GenerateTask) {
+    generatorName = "spring"
+    library = "spring-boot"
+    inputSpec = "$buildDir/resources/main/openapi/opora-api.yml"
+//    inputSpec = "$rootDir/spec/opora-api.yml"
+    // change to path from $buildDir/unpacked/openapi and delete openapi.yaml file
+    outputDir = "$buildDir/generated"
+    modelNameSuffix = "Dto"
+    apiPackage = "dev.tarasshablii.monolith.opora.apigateway.endpoint.rest.api"
+    modelPackage = "dev.tarasshablii.monolith.opora.apigateway.endpoint.rest.dto"
+    configOptions = [
+            generatedConstructorWithRequiredArgs: "false",
+            interfaceOnly                       : "true",
+            useSpringController                 : "true",
+            useTags                             : "true",
+            dateLibrary                         : "java8",
+            skipDefaultInterface                : "true",
+            useSpringBoot3                      : "true",
+            useJakartaEe                        : "true",
+            additionalModelTypeAnnotations      :
+                    """
+                        @lombok.Builder
+                        @lombok.extern.jackson.Jacksonized
+                        @com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
+                    """
+
+    ]
+    typeMappings = [
+            OffsetDateTime: "Instant"
+    ]
+    importMappings = [
+            "java.time.OffsetDateTime": "java.time.Instant"
+    ]
+
+    doLast {
+        delete fileTree("$buildDir/generated/src/main/java/") {
+            include '**/rest/api/ApiUtil.java'
+        }
+    }
+
+    dependsOn tasks.processResources
+    tasks.compileJava.dependsOn it
 }
 
 test {

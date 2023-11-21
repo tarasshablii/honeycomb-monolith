@@ -27,15 +27,18 @@ subprojects {
     }
 
     dependencies {
-        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
-        annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor:$springBootVersion"
+        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+        implementation "org.mapstruct:mapstruct:$mapstructVersion"
         annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
 
-        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
+        annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor:$springBootVersion"
+
+        runtimeOnly "org.springframework.boot:spring-boot-devtools:$springBootVersion"
 
         implementation "org.springframework.boot:spring-boot-starter:$springBootVersion"
-        implementation "org.mapstruct:mapstruct:$mapstructVersion"
 
         testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
     }
