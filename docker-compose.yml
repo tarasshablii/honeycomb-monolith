@@ -13,6 +13,19 @@ services:
     volumes:
       - sponsors-db:/var/lib/postgresql/data
 
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rootuser
+      MONGO_INITDB_ROOT_PASSWORD: rootpass
+      MONGO_INITDB_DATABASE: initiatives
+    volumes:
+      - initiatives-db:/data/db
+
 volumes:
   sponsors-db:
     driver: local
+  initiatives-db:

@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SponsorService {
 
-	public static final String NOT_FOUND_MESSAGE = "Sponsor with id [%s] not found";
+	private static final String NOT_FOUND_MESSAGE = "Sponsor with id [%s] not found";
 	private final SponsorProvider sponsorProvider;
 	private final ContactProvider contactProvider;
 

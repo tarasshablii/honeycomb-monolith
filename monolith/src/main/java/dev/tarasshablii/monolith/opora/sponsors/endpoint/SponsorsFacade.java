@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class SponsorFacade {
+public class SponsorsFacade {
 
 	private final SponsorService service;
 	private final SponsorDtoMapper mapper;

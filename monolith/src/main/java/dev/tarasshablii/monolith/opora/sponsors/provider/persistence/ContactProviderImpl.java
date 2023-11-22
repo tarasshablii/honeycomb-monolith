@@ -1,4 +1,4 @@
-package dev.tarasshablii.monolith.opora.sponsors.provider;
+package dev.tarasshablii.monolith.opora.sponsors.provider.persistence;
 
 import dev.tarasshablii.monolith.opora.sponsors.domain.model.Contact;
 import dev.tarasshablii.monolith.opora.sponsors.domain.port.ContactProvider;

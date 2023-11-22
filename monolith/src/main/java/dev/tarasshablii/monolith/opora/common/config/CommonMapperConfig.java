@@ -1,4 +1,4 @@
-package dev.tarasshablii.monolith.opora.config;
+package dev.tarasshablii.monolith.opora.common.config;
 
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.MapperConfig;

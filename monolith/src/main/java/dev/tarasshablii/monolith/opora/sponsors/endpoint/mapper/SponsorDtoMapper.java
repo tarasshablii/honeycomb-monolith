@@ -2,7 +2,7 @@ package dev.tarasshablii.monolith.opora.sponsors.endpoint.mapper;
 
 import dev.tarasshablii.monolith.opora.apigateway.endpoint.rest.dto.SponsorRequestDto;
 import dev.tarasshablii.monolith.opora.apigateway.endpoint.rest.dto.SponsorResponseDto;
-import dev.tarasshablii.monolith.opora.config.CommonMapperConfig;
+import dev.tarasshablii.monolith.opora.common.config.CommonMapperConfig;
 import dev.tarasshablii.monolith.opora.sponsors.domain.model.Sponsor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

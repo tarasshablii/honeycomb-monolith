@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler({ NotFoundException.class })
 	public ResponseEntity<ErrorResponseDto> handleNotFound(NotFoundException exception) {
-		log.warn(exception.getMessage());
+		log.warn(exception.getErrorMessage());
 		return ResponseEntity.status(NOT_FOUND)
 									.body(ErrorResponseDto.builder().timestamp(Instant.now()).message(exception.getErrorMessage())
 																 .build());
