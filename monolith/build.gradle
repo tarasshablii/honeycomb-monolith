@@ -17,6 +17,7 @@ dependencies {
 
     implementation "org.postgresql:postgresql:$postgresqlVersion"
     implementation "org.apache.commons:commons-collections4:$commonsCollectionsVersion"
+    implementation "io.minio:minio:$minioVersion"
 
     implementation "org.openapitools:jackson-databind-nullable:$openapiJacksonDatabindNullableVersion"
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocWebmvcUiVersion"
@@ -26,6 +27,7 @@ dependencies {
     implementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
     testImplementation 'org.testcontainers:postgresql'
     testImplementation 'org.testcontainers:mongodb'
+    testImplementation 'org.testcontainers:minio'
 
     // Overriding to avoid vulnerability
     implementation "org.yaml:snakeyaml:$snakeYamlVersion"
@@ -39,6 +41,14 @@ dependencyManagement {
 
 springBoot {
     mainClass = "dev.tarasshablii.monolith.opora.Application"
+}
+
+jar {
+    // Spring Boot 2.5.0+ creates two JAR files: {ARCHIVE_BASE_NAME}.jar and {ARCHIVE_BASE_NAME}-plain.jar.
+    // This forces gradle to just create one `{ARCHIVE_BASE_NAME}.jar`
+    enabled = false
+    archivesBaseName = "$rootProject.name-monolith"
+    project.version = ""
 }
 
 task openApiGenerateServer(type: GenerateTask) {

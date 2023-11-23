@@ -1,6 +1,27 @@
 version: '3.9'
 
 services:
+
+  opora_backend:
+    build:
+      context: .
+      dockerfile: Dockerfile-monolith
+    ports:
+      - "8080:8080"
+    environment:
+      SPONSORS_DATABASE_HOST: postgres_sponsors
+      SPRING_DATA_MONGODB_HOST: mongodb
+      MEDIA_DATABASE_HOST: minio
+      MEDIA_METADATA_DATABASE_HOST: postgres_media
+      MEDIA_METADATA_DATABASE_port: 5432
+    depends_on:
+      - postgres_sponsors
+      - mongodb
+      - minio
+      - postgres_media
+    networks:
+      - opora-network
+
   postgres_sponsors:
     image: postgres
     restart: always
@@ -12,6 +33,8 @@ services:
       POSTGRES_DB: sponsors
     volumes:
       - sponsors-db:/var/lib/postgresql/data
+    networks:
+      - opora-network
 
   postgres_media:
     image: postgres
@@ -24,6 +47,8 @@ services:
       POSTGRES_DB: media_metadata
     volumes:
       - media-metadata-db:/var/lib/postgresql/data
+    networks:
+      - opora-network
 
   mongodb:
     image: mongo
@@ -36,6 +61,8 @@ services:
       MONGO_INITDB_DATABASE: initiatives
     volumes:
       - initiatives-db:/data/db
+    networks:
+      - opora-network
 
   minio:
     image: quay.io/minio/minio
@@ -43,8 +70,6 @@ services:
     ports:
       - "9000:9000"
       - "9001:9001"
-    volumes:
-      - media-db:/data
     environment:
       MINIO_ROOT_USER: media_user
       MINIO_ROOT_PASSWORD: media_pass
@@ -52,6 +77,14 @@ services:
       MINIO_CONSOLE_ADDRESS: ':9001'
       MINIO_DEFAULT_BUCKETS: media
     command: server /data
+    volumes:
+      - media-db:/data
+    networks:
+      - opora-network
+
+networks:
+  opora-network:
+    driver: bridge
 
 volumes:
   sponsors-db:

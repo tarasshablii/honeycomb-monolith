@@ -1,4 +1,4 @@
-rootProject.name = 'honecomb-monolith'
+rootProject.name = 'honeycomb-monolith'
 include 'monolith'
 include 'microservices:api-gateway'
 include 'microservices:sponsors'

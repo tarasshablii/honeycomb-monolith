@@ -6,6 +6,7 @@ import dev.tarasshablii.monolith.opora.common.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeException;
@@ -77,6 +78,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ErrorResponseDto> handleNotFound(NotFoundException exception) {
 		log.warn(exception.getErrorMessage());
 		return ResponseEntity.status(NOT_FOUND)
+									.contentType(MediaType.APPLICATION_JSON)
 									.body(ErrorResponseDto.builder().timestamp(Instant.now()).message(exception.getErrorMessage())
 																 .build());
 	}

@@ -789,16 +789,11 @@ components:
       type: object
       required:
         - id
-        - url
       properties:
         id:
           type: string
           format: uuid
           example: '8751674d-ea92-4a01-95d1-d50e603c6920'
-        url:
-          type: string
-          format: uri
-          example: 'http://localhost:8080/v1/media/8751674d-ea92-4a01-95d1-d50e603c6920'
 
     ErrorResponse:
       type: object
