@@ -1,12 +1,186 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
 plugins {
     id "org.springframework.boot" version "$springBootVersion"
+    id "io.spring.dependency-management" version "$springDependencyManagementVersion"
+    id "org.openapi.generator" version "$openApiGeneratorVersion"
 }
 
+sourceSets.main.java.srcDirs += "$projectDir/build/generated/src/main/java"
+
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation "org.openapitools:jackson-databind-nullable:$openapiJacksonDatabindNullableVersion"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocWebmvcUiVersion"
+    implementation "javax.annotation:javax.annotation-api:1.3.2"
+    implementation "com.google.code.findbugs:jsr305:3.0.2"
+
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:junit-jupiter'
+
+    // Overriding to avoid vulnerability
+    implementation "org.yaml:snakeyaml:$snakeYamlVersion"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:$springDependenciesVersion"
+    }
 }
 
 springBoot {
-    mainClass = "dev.tarasshablii.apigateway.Application"
+    mainClass = "dev.tarasshablii.opora.microservices.apigateway.Application"
+}
+
+jar {
+    // Spring Boot 2.5.0+ creates two JAR files: {ARCHIVE_BASE_NAME}.jar and {ARCHIVE_BASE_NAME}-plain.jar.
+    // This forces gradle to just create one `{ARCHIVE_BASE_NAME}.jar`
+    enabled = false
+    archivesBaseName = "$rootProject.name-apigateway"
+    project.version = ""
+}
+
+task openApiGenerateServer(type: GenerateTask) {
+    generatorName = "spring"
+    library = "spring-boot"
+    inputSpec = "$projectDir/../../openapi/opora-api.yml"
+    outputDir = "$projectDir/build/generated"
+    modelNameSuffix = "Dto"
+    apiPackage = "dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.api"
+    modelPackage = "dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto"
+    configOptions = [
+            generatedConstructorWithRequiredArgs: "false",
+            interfaceOnly                       : "true",
+            useSpringController                 : "true",
+            useTags                             : "true",
+            dateLibrary                         : "java8",
+            skipDefaultInterface                : "true",
+            useSpringBoot3                      : "true",
+            useJakartaEe                        : "true",
+            additionalModelTypeAnnotations      :
+                    """
+                        @lombok.Builder
+                        @lombok.extern.jackson.Jacksonized
+                        @com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
+                    """
+
+    ]
+    typeMappings = [
+            OffsetDateTime: "Instant"
+    ]
+    importMappings = [
+            "java.time.OffsetDateTime": "java.time.Instant"
+    ]
+
+    doLast {
+        delete fileTree("$projectDir/build/generated/src/main/java/") {
+            include '**/rest/api/ApiUtil.java'
+        }
+    }
+
+    tasks.compileJava.dependsOn it
+}
+
+task openApiGenerateSponsorsClient(type: GenerateTask) {
+    generatorName = "java"        //https://openapi-generator.tech/docs/generators/java/
+    library = "resttemplate"
+    inputSpec = "$projectDir/../../openapi/opora-sponsors-api.yml"
+    outputDir = "$projectDir/build/generated"
+    modelNameSuffix = "Dto"
+    modelPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.sponsors"
+    apiPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.api.sponsors"
+    configOptions = [
+            useJakartaEe                  : "false",
+            dateLibrary                   : "java8",
+            generateClientAsBean          : "true",
+            additionalModelTypeAnnotations:
+                    "@lombok.Builder\n" +
+                            "@lombok.AllArgsConstructor\n" +
+                            "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)"
+    ]
+    typeMappings = [
+            OffsetDateTime: "Instant"
+    ]
+    importMappings = [
+            "java.time.OffsetDateTime": "java.time.Instant"
+    ]
+
+    doLast {
+        delete fileTree("$projectDir/build/generated/src/main/java/") {
+            include '**/rest/api/ApiUtil.java'
+        }
+    }
+
+    tasks.compileJava.dependsOn it
+}
+
+task openApiGenerateInitiativesClient(type: GenerateTask) {
+    generatorName = "java"        //https://openapi-generator.tech/docs/generators/java/
+    library = "resttemplate"
+    inputSpec = "$projectDir/../../openapi/opora-initiatives-api.yml"
+    outputDir = "$projectDir/build/generated"
+    modelNameSuffix = "Dto"
+    modelPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives"
+    apiPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.api.initiatives"
+    configOptions = [
+            useJakartaEe                  : "false",
+            dateLibrary                   : "java8",
+            generateClientAsBean          : "true",
+            useOneOfInterfaces            : "true",
+            additionalModelTypeAnnotations:
+                    "@lombok.Builder\n" +
+                            "@lombok.AllArgsConstructor\n" +
+                            "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)"
+    ]
+    typeMappings = [
+            OffsetDateTime: "Instant"
+    ]
+    importMappings = [
+            "java.time.OffsetDateTime": "java.time.Instant"
+    ]
+
+    doLast {
+        delete fileTree("$projectDir/build/generated/src/main/java/") {
+            include '**/rest/api/ApiUtil.java'
+        }
+    }
+
+    tasks.compileJava.dependsOn it
+}
+
+task openApiGenerateMediaClient(type: GenerateTask) {
+    generatorName = "java"        //https://openapi-generator.tech/docs/generators/java/
+    library = "resttemplate"
+    inputSpec = "$projectDir/../../openapi/opora-media-api.yml"
+    outputDir = "$projectDir/build/generated"
+    modelNameSuffix = "Dto"
+    modelPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.media"
+    apiPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.api.media"
+    configOptions = [
+            useJakartaEe                  : "false",
+            dateLibrary                   : "java8",
+            generateClientAsBean          : "true",
+            additionalModelTypeAnnotations:
+                    "@lombok.Builder\n" +
+                            "@lombok.AllArgsConstructor\n" +
+                            "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)"
+    ]
+    typeMappings = [
+            OffsetDateTime: "Instant"
+    ]
+    importMappings = [
+            "java.time.OffsetDateTime": "java.time.Instant"
+    ]
+
+    doLast {
+        delete fileTree("$projectDir/build/generated/src/main/java/") {
+            include '**/rest/api/ApiUtil.java'
+        }
+    }
+
+    tasks.compileJava.dependsOn it
 }
 
 test {

@@ -40,7 +40,7 @@ dependencyManagement {
 }
 
 springBoot {
-    mainClass = "dev.tarasshablii.monolith.opora.Application"
+    mainClass = "dev.tarasshablii.opora.monolith.Application"
 }
 
 jar {
@@ -57,8 +57,8 @@ task openApiGenerateServer(type: GenerateTask) {
     inputSpec = "$projectDir/../openapi/opora-api.yml"
     outputDir = "$projectDir/build/generated"
     modelNameSuffix = "Dto"
-    apiPackage = "dev.tarasshablii.monolith.opora.apigateway.endpoint.rest.api"
-    modelPackage = "dev.tarasshablii.monolith.opora.apigateway.endpoint.rest.dto"
+    apiPackage = "dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.api"
+    modelPackage = "dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.dto"
     configOptions = [
             generatedConstructorWithRequiredArgs: "false",
             interfaceOnly                       : "true",

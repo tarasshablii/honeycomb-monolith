@@ -1,0 +1,225 @@
+openapi: 3.0.3
+info:
+  title: Media API
+  description: Media part of Opora API
+  version: "1.0.0"
+servers:
+  - url: 'http://localhost:8080'
+    description: localhost
+tags:
+  - name: Media
+    description: API for accessing media files
+
+paths:
+  /v1/media:
+    post:
+      tags:
+        - Media
+      summary: Upload a new image
+      operationId: createMedia
+      requestBody:
+        required: true
+        content:
+          image/png:
+            schema:
+              type: string
+              format: binary
+          image/jpeg:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '201':
+          description: Image successfully uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - OAuth2: [ ]
+
+  /v1/media/{id}:
+    get:
+      tags:
+        - Media
+      summary: Get an image by ID
+      operationId: getMedia
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Image details
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Media
+      summary: Update an image by ID
+      operationId: updateMedia
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          image/png:
+            schema:
+              type: string
+              format: binary
+          image/jpeg:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Image successfully updated
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - OAuth2: [ ]
+    delete:
+      tags:
+        - Media
+      summary: Delete an image by ID
+      operationId: deleteMedia
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Image successfully deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - OAuth2: [ ]
+
+components:
+  schemas:
+    MediaResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: '8751674d-ea92-4a01-95d1-d50e603c6920'
+
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: '2023-11-21T14:48:41.877976Z'
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: 'JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \"<uuid>\": UUID has to be represented by standard 36-char representation'
+        details:
+          type: string
+          description: Additional details about the error, if available.
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: The field associated with this error.
+                example: 'uuid'
+              message:
+                type: string
+                description: A human-readable message providing more details about the field error.
+                example: 'JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \"<uuid>\": UUID has to be represented by standard 36-char representation'
+          description: An array of errors relating to specific fields in the request.
+
+  securitySchemes:
+
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://localhost:9000/realms/opora/protocol/openid-connect/token
+          scopes: { }
+
+  responses:
+
+    BadRequest:
+      description: The request could not be understood or was missing required parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    Unauthorized:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    Forbidden:
+      description: The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    InternalServerError:
+      description: The server encountered an internal error or misconfiguration and was unable to complete your request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
