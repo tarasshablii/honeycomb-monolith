@@ -6,7 +6,7 @@ plugins {
     id "org.openapi.generator" version "$openApiGeneratorVersion"
 }
 
-sourceSets.main.java.srcDirs += "$buildDir/generated/src/main/java"
+sourceSets.main.java.srcDirs += "$projectDir/build/generated/src/main/java"
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
@@ -54,8 +54,8 @@ jar {
 task openApiGenerateServer(type: GenerateTask) {
     generatorName = "spring"
     library = "spring-boot"
-    inputSpec = "$buildDir/resources/main/openapi/opora-api.yml"
-    outputDir = "$buildDir/generated"
+    inputSpec = "$projectDir/../openapi/opora-api.yml"
+    outputDir = "$projectDir/build/generated"
     modelNameSuffix = "Dto"
     apiPackage = "dev.tarasshablii.monolith.opora.apigateway.endpoint.rest.api"
     modelPackage = "dev.tarasshablii.monolith.opora.apigateway.endpoint.rest.dto"
@@ -84,12 +84,11 @@ task openApiGenerateServer(type: GenerateTask) {
     ]
 
     doLast {
-        delete fileTree("$buildDir/generated/src/main/java/") {
+        delete fileTree("$projectDir/build/generated/src/main/java/") {
             include '**/rest/api/ApiUtil.java'
         }
     }
 
-    dependsOn tasks.processResources
     tasks.compileJava.dependsOn it
 }
 
