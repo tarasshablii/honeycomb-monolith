@@ -1,4 +1,4 @@
-package dev.tarasshablii.initiatives;
+package dev.tarasshablii.opora.microservices.sponsors;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

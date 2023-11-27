@@ -1,6 +1,6 @@
-package dev.tarasshablii.opora.monolith.initiatives.provider.persistence.entity;
+package dev.tarasshablii.opora.microservices.initiatives.provider.persistence.entity;
 
-import dev.tarasshablii.opora.monolith.initiatives.domain.model.*;
+import dev.tarasshablii.opora.microservices.initiatives.domain.model.*;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -1,11 +1,11 @@
-package dev.tarasshablii.opora.monolith.common.exception;
+package dev.tarasshablii.opora.microservices.sponsors.domain.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class UnauthorizedException extends RuntimeException {
+public class NotFoundException extends RuntimeException {
 
 	private final String errorMessage;
 }
