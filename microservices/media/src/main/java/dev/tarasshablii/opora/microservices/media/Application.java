@@ -1,4 +1,4 @@
-package dev.tarasshablii.media;
+package dev.tarasshablii.opora.microservices.media;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
