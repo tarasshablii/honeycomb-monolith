@@ -1,8 +1,44 @@
 version: '3.9'
 
 services:
+
+  opora_monolith:
+    profiles:
+      - monolith
+    build:
+      context: .
+      dockerfile: monolith.Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      LOG_LEVEL: DEBUG
+      SPONSORS_DATABASE_HOST: postgres_sponsors
+      SPONSORS_DATABASE_PORT: 5432
+      SPONSORS_DATABASE_USERNAME: sponsors_user
+      SPONSORS_DATABASE_PASSWORD: sponsors_pass
+      SPRING_DATA_MONGODB_HOST: mongodb
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_USERNAME: initiatives_user
+      SPRING_DATA_MONGODB_PASSWORD: initiatives_pass
+      MEDIA_DATABASE_HOST: minio
+      MEDIA_DATABASE_PORT: 9000
+      MEDIA_DATABASE_USERNAME: media_user
+      MEDIA_DATABASE_PASSWORD: media_pass
+      MEDIA_METADATA_DATABASE_HOST: postgres_media
+      MEDIA_METADATA_DATABASE_PORT: 5432
+      MEDIA_METADATA_DATASOURCE_USERNAME: media_user
+      MEDIA_METADATA_DATASOURCE_PASSWORD: media_pass
+    depends_on:
+      - postgres_sponsors
+      - mongodb
+      - minio
+      - postgres_media
+    networks:
+      - opora-network
+
   postgres_sponsors:
     image: postgres
+    container_name: postgres_sponsors
     restart: always
     ports:
       - "5432:5432"
@@ -12,9 +48,12 @@ services:
       POSTGRES_DB: sponsors
     volumes:
       - sponsors-db:/var/lib/postgresql/data
+    networks:
+      - opora-network
 
   postgres_media:
     image: postgres
+    container_name: postgres_media
     restart: always
     ports:
       - "5433:5432"
@@ -24,9 +63,12 @@ services:
       POSTGRES_DB: media_metadata
     volumes:
       - media-metadata-db:/var/lib/postgresql/data
+    networks:
+      - opora-network
 
   mongodb:
     image: mongo
+    container_name: mongodb
     restart: always
     ports:
       - "27017:27017"
@@ -36,15 +78,16 @@ services:
       MONGO_INITDB_DATABASE: initiatives
     volumes:
       - initiatives-db:/data/db
+    networks:
+      - opora-network
 
   minio:
     image: quay.io/minio/minio
+    container_name: minio
     restart: always
     ports:
       - "9000:9000"
       - "9001:9001"
-    volumes:
-      - media-db:/data
     environment:
       MINIO_ROOT_USER: media_user
       MINIO_ROOT_PASSWORD: media_pass
@@ -52,6 +95,14 @@ services:
       MINIO_CONSOLE_ADDRESS: ':9001'
       MINIO_DEFAULT_BUCKETS: media
     command: server /data
+    volumes:
+      - media-db:/data
+    networks:
+      - opora-network
+
+networks:
+  opora-network:
+    driver: bridge
 
 volumes:
   sponsors-db:
