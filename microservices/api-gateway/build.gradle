@@ -89,12 +89,11 @@ task openApiGenerateSponsorsClient(type: GenerateTask) {
     inputSpec = "$projectDir/../../openapi/opora-sponsors-api.yml"
     outputDir = "$projectDir/build/generated"
     modelNameSuffix = "Dto"
-    modelPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.sponsors"
-    apiPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.api.sponsors"
+    modelPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.sponsors.dto"
+    apiPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.sponsors.api"
     configOptions = [
             useJakartaEe                  : "false",
             dateLibrary                   : "java8",
-            generateClientAsBean          : "true",
             additionalModelTypeAnnotations:
                     "@lombok.Builder\n" +
                             "@lombok.AllArgsConstructor\n" +
@@ -122,12 +121,11 @@ task openApiGenerateInitiativesClient(type: GenerateTask) {
     inputSpec = "$projectDir/../../openapi/opora-initiatives-api.yml"
     outputDir = "$projectDir/build/generated"
     modelNameSuffix = "Dto"
-    modelPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives"
-    apiPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.api.initiatives"
+    modelPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto"
+    apiPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.api"
     configOptions = [
             useJakartaEe                  : "false",
             dateLibrary                   : "java8",
-            generateClientAsBean          : "true",
             useOneOfInterfaces            : "true",
             additionalModelTypeAnnotations:
                     "@lombok.Builder\n" +
@@ -156,12 +154,11 @@ task openApiGenerateMediaClient(type: GenerateTask) {
     inputSpec = "$projectDir/../../openapi/opora-media-api.yml"
     outputDir = "$projectDir/build/generated"
     modelNameSuffix = "Dto"
-    modelPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.media"
-    apiPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.api.media"
+    modelPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.media.dto"
+    apiPackage = "dev.tarasshablii.opora.microservices.apigateway.provider.rest.media.api"
     configOptions = [
             useJakartaEe                  : "false",
             dateLibrary                   : "java8",
-            generateClientAsBean          : "true",
             additionalModelTypeAnnotations:
                     "@lombok.Builder\n" +
                             "@lombok.AllArgsConstructor\n" +

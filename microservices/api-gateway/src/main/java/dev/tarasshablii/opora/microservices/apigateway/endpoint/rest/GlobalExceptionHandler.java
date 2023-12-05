@@ -5,6 +5,7 @@ import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto.ErrorRe
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeException;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.UnknownContentTypeException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.Instant;
@@ -29,6 +33,25 @@ public class GlobalExceptionHandler {
 
 	private static final String INVALID_REQUEST_BODY = "Invalid request body";
 	private static final String REQUEST_FAILED_VALIDATION = "Request failed validation";
+
+	@ExceptionHandler({ HttpClientErrorException.NotFound.class })
+	public ResponseEntity<ErrorResponseDto> handleNotFound(HttpClientErrorException.NotFound exception) {
+		log.warn(exception.getStatusText());
+		return ResponseEntity.status(NOT_FOUND)
+									.contentType(MediaType.APPLICATION_JSON)
+									.body(exception.getResponseBodyAs(ErrorResponseDto.class));
+	}
+
+	@ExceptionHandler({ ResourceAccessException.class })
+	public ResponseEntity<ErrorResponseDto> handleNotAvailable(ResourceAccessException exception) {
+		log.warn(exception.getMessage());
+		return ResponseEntity.status(SERVICE_UNAVAILABLE)
+									.contentType(MediaType.APPLICATION_JSON)
+									.body(ErrorResponseDto.builder()
+																 .timestamp(Instant.now())
+																 .message(exception.getMessage())
+																 .build());
+	}
 
 	@ExceptionHandler({ HttpMessageNotReadableException.class })
 	public ResponseEntity<ErrorResponseDto> handleMessageNotReadable(HttpMessageNotReadableException exception) {
@@ -73,7 +96,7 @@ public class GlobalExceptionHandler {
 	}
 
 
-	@ExceptionHandler({ HttpMediaTypeNotSupportedException.class, HttpMediaTypeNotAcceptableException.class })
+	@ExceptionHandler({ HttpMediaTypeNotSupportedException.class, HttpMediaTypeNotAcceptableException.class, UnknownContentTypeException.class })
 	protected ResponseEntity<ErrorResponseDto> handleHttpMediaTypeNotSupportedException(HttpMediaTypeException exception) {
 		log.warn(exception.getMessage(), exception);
 		return ResponseEntity

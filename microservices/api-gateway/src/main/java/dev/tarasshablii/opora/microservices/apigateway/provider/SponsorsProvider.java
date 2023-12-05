@@ -3,7 +3,7 @@ package dev.tarasshablii.opora.microservices.apigateway.provider;
 import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto.SponsorRequestDto;
 import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto.SponsorResponseDto;
 import dev.tarasshablii.opora.microservices.apigateway.provider.mapper.SponsorsMapper;
-import dev.tarasshablii.opora.microservices.apigateway.provider.rest.api.sponsors.SponsorsApi;
+import dev.tarasshablii.opora.microservices.apigateway.provider.rest.sponsors.api.SponsorsApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

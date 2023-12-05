@@ -2,8 +2,8 @@ package dev.tarasshablii.opora.microservices.apigateway.provider.mapper;
 
 import dev.tarasshablii.opora.microservices.apigateway.config.CommonMapperConfig;
 import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto.*;
-import dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives.InitiativeServiceRequestDto;
-import dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives.InitiativeServiceResponseDto;
+import dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto.InitiativeServiceRequestDto;
+import dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto.InitiativeServiceResponseDto;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -17,15 +17,15 @@ public interface InitiativesMapper {
 
 	List<InitiativeResponseDto> toGatewayResponseList(List<InitiativeServiceResponseDto> serviceResponseDto);
 
-	AddressDto toGatewayAddressDto(dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives.AddressDto dto);
+	AddressDto toGatewayAddressDto(dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto.AddressDto dto);
 
-	dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives.AddressDto toServiceAddressDto(AddressDto dto);
+	dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto.AddressDto toServiceAddressDto(AddressDto dto);
 
-	NovaPoshtaDto toGatewayNPDto(dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives.NovaPoshtaDto dto);
+	NovaPoshtaDto toGatewayNPDto(dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto.NovaPoshtaDto dto);
 
-	dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives.NovaPoshtaDto toServiceNPDto(NovaPoshtaDto dto);
+	dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto.NovaPoshtaDto toServiceNPDto(NovaPoshtaDto dto);
 
-	default dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives.InitiativeServiceRequestDirectionsInnerDto toServiceDirection(
+	default dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto.InitiativeServiceRequestDirectionsInnerDto toServiceDirection(
 			InitiativeRequestDirectionsInnerDto dto) {
 		if (dto instanceof AddressDto addressDto) {
 			return toServiceAddressDto(addressDto);
@@ -37,10 +37,10 @@ public interface InitiativesMapper {
 	}
 
 	default InitiativeRequestDirectionsInnerDto toGatewayDirection(
-			dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives.InitiativeServiceRequestDirectionsInnerDto dto) {
-		if (dto instanceof dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives.AddressDto addressDto) {
+			dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto.InitiativeServiceRequestDirectionsInnerDto dto) {
+		if (dto instanceof dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto.AddressDto addressDto) {
 			return toGatewayAddressDto(addressDto);
-		} else if (dto instanceof dev.tarasshablii.opora.microservices.apigateway.provider.rest.dto.initiatives.NovaPoshtaDto novaPoshtaDto) {
+		} else if (dto instanceof dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.dto.NovaPoshtaDto novaPoshtaDto) {
 			return toGatewayNPDto(novaPoshtaDto);
 		} else {
 			throw new IllegalArgumentException("Unknown implementation of Directions");

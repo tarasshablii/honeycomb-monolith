@@ -3,7 +3,7 @@ package dev.tarasshablii.opora.microservices.apigateway.provider;
 import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto.InitiativeRequestDto;
 import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto.InitiativeResponseDto;
 import dev.tarasshablii.opora.microservices.apigateway.provider.mapper.InitiativesMapper;
-import dev.tarasshablii.opora.microservices.apigateway.provider.rest.api.initiatives.InitiativesApi;
+import dev.tarasshablii.opora.microservices.apigateway.provider.rest.initiatives.api.InitiativesApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
