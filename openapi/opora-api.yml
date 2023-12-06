@@ -52,14 +52,8 @@ paths:
                 $ref: '#/components/schemas/SponsorResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
   /v1/sponsors/{id}:
     get:
@@ -112,16 +106,10 @@ paths:
                 $ref: '#/components/schemas/SponsorResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
     delete:
       tags:
         - Sponsors
@@ -137,16 +125,10 @@ paths:
       responses:
         '204':
           description: Sponsor successfully deleted
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
   /v1/initiatives:
     get:
@@ -193,14 +175,8 @@ paths:
                 $ref: '#/components/schemas/InitiativeResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
   /v1/initiatives/{id}:
     get:
@@ -253,16 +229,10 @@ paths:
                 $ref: '#/components/schemas/InitiativeResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
     delete:
       tags:
         - Initiatives
@@ -278,16 +248,10 @@ paths:
       responses:
         '204':
           description: Initiative successfully deleted
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
   /v1/media:
     post:
@@ -315,12 +279,8 @@ paths:
                 $ref: '#/components/schemas/MediaResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
   /v1/media/{id}:
     get:
@@ -379,16 +339,10 @@ paths:
           description: Image successfully updated
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
     delete:
       tags:
         - Media
@@ -404,16 +358,10 @@ paths:
       responses:
         '204':
           description: Image successfully deleted
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
 components:
   schemas:
@@ -824,33 +772,10 @@ components:
                 example: 'JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \"<uuid>\": UUID has to be represented by standard 36-char representation'
           description: An array of errors relating to specific fields in the request.
 
-  securitySchemes:
-
-    OAuth2:
-      type: oauth2
-      flows:
-        password:
-          tokenUrl: https://localhost:9000/realms/opora/protocol/openid-connect/token
-          scopes: { }
-
   responses:
 
     BadRequest:
       description: The request could not be understood or was missing required parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-
-    Unauthorized:
-      description: Authentication credentials were missing or incorrect.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-
-    Forbidden:
-      description: The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.
       content:
         application/json:
           schema:

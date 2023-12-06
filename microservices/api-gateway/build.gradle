@@ -10,6 +10,7 @@ sourceSets.main.java.srcDirs += "$projectDir/build/generated/src/main/java"
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     implementation "org.openapitools:jackson-databind-nullable:$openapiJacksonDatabindNullableVersion"
@@ -85,7 +86,7 @@ task openApiGenerateServer(type: GenerateTask) {
 
 task openApiGenerateSponsorsClient(type: GenerateTask) {
     generatorName = "java"        //https://openapi-generator.tech/docs/generators/java/
-    library = "resttemplate"
+    library = "webclient"
     inputSpec = "$projectDir/../../openapi/opora-sponsors-api.yml"
     outputDir = "$projectDir/build/generated"
     modelNameSuffix = "Dto"
@@ -117,7 +118,7 @@ task openApiGenerateSponsorsClient(type: GenerateTask) {
 
 task openApiGenerateInitiativesClient(type: GenerateTask) {
     generatorName = "java"        //https://openapi-generator.tech/docs/generators/java/
-    library = "resttemplate"
+    library = "webclient"
     inputSpec = "$projectDir/../../openapi/opora-initiatives-api.yml"
     outputDir = "$projectDir/build/generated"
     modelNameSuffix = "Dto"
@@ -150,7 +151,7 @@ task openApiGenerateInitiativesClient(type: GenerateTask) {
 
 task openApiGenerateMediaClient(type: GenerateTask) {
     generatorName = "java"        //https://openapi-generator.tech/docs/generators/java/
-    library = "resttemplate"
+    library = "webclient"
     inputSpec = "$projectDir/../../openapi/opora-media-api.yml"
     outputDir = "$projectDir/build/generated"
     modelNameSuffix = "Dto"

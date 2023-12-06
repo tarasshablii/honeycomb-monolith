@@ -6,6 +6,7 @@ import dev.tarasshablii.opora.microservices.media.endpoint.rest.dto.ErrorRespons
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -83,7 +84,8 @@ public class GlobalExceptionHandler {
 																 .build());
 	}
 
-	@ExceptionHandler({ HttpMediaTypeNotSupportedException.class, HttpMediaTypeNotAcceptableException.class })
+	@ExceptionHandler({ HttpMediaTypeNotSupportedException.class, HttpMediaTypeNotAcceptableException.class,
+			InvalidMediaTypeException.class })
 	protected ResponseEntity<ErrorResponseDto> handleHttpMediaTypeNotSupportedException(HttpMediaTypeException exception) {
 		log.warn(exception.getMessage(), exception);
 		return ResponseEntity

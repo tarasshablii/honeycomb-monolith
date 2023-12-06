@@ -6,10 +6,10 @@ import dev.tarasshablii.opora.microservices.apigateway.provider.rest.sponsors.ap
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-public class RestClientConfig {
+public class WebClientConfig {
 
 	@Value("${initiatives.service.url}")
 	private String initiativesServiceUrl;
@@ -21,8 +21,12 @@ public class RestClientConfig {
 	private String sponsorsServiceUrl;
 
 	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
+	public WebClient mediaWebClient() {
+		return WebClient.builder()
+							 .baseUrl(mediaServiceUrl.concat("/v1/media"))
+							 .codecs(configurer -> configurer.defaultCodecs()
+																		.maxInMemorySize(10 * 1024 * 1024)) // 10 MB
+							 .build();
 	}
 
 	@Bean

@@ -16,10 +16,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.UnknownContentTypeException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.reactive.function.client.WebClientRequestException;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.time.Instant;
 import java.util.Collections;
@@ -34,16 +34,16 @@ public class GlobalExceptionHandler {
 	private static final String INVALID_REQUEST_BODY = "Invalid request body";
 	private static final String REQUEST_FAILED_VALIDATION = "Request failed validation";
 
-	@ExceptionHandler({ HttpClientErrorException.NotFound.class })
-	public ResponseEntity<ErrorResponseDto> handleNotFound(HttpClientErrorException.NotFound exception) {
+	@ExceptionHandler({ WebClientResponseException.NotFound.class })
+	public ResponseEntity<ErrorResponseDto> handleNotFound(WebClientResponseException.NotFound exception) {
 		log.warn(exception.getStatusText());
 		return ResponseEntity.status(NOT_FOUND)
 									.contentType(MediaType.APPLICATION_JSON)
 									.body(exception.getResponseBodyAs(ErrorResponseDto.class));
 	}
 
-	@ExceptionHandler({ ResourceAccessException.class })
-	public ResponseEntity<ErrorResponseDto> handleNotAvailable(ResourceAccessException exception) {
+	@ExceptionHandler({ WebClientRequestException.class })
+	public ResponseEntity<ErrorResponseDto> handleNotAvailable(WebClientRequestException exception) {
 		log.warn(exception.getMessage());
 		return ResponseEntity.status(SERVICE_UNAVAILABLE)
 									.contentType(MediaType.APPLICATION_JSON)
@@ -96,7 +96,8 @@ public class GlobalExceptionHandler {
 	}
 
 
-	@ExceptionHandler({ HttpMediaTypeNotSupportedException.class, HttpMediaTypeNotAcceptableException.class, UnknownContentTypeException.class })
+	@ExceptionHandler({ HttpMediaTypeNotSupportedException.class, HttpMediaTypeNotAcceptableException.class,
+			UnknownContentTypeException.class })
 	protected ResponseEntity<ErrorResponseDto> handleHttpMediaTypeNotSupportedException(HttpMediaTypeException exception) {
 		log.warn(exception.getMessage(), exception);
 		return ResponseEntity
@@ -105,6 +106,15 @@ public class GlobalExceptionHandler {
 											 .timestamp(Instant.now())
 											 .message(UNSUPPORTED_MEDIA_TYPE.name())
 											 .build());
+	}
+
+	@ExceptionHandler(WebClientResponseException.BadRequest.class)
+	protected ResponseEntity<ErrorResponseDto> handleHttpMediaTypeNotSupportedException(
+			WebClientResponseException.BadRequest exception) {
+		log.warn(exception.getMessage(), exception);
+		return ResponseEntity
+				.badRequest()
+				.body(exception.getResponseBodyAs(ErrorResponseDto.class));
 	}
 
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
@@ -156,6 +166,13 @@ public class GlobalExceptionHandler {
 																 .message("Internal server error occurred")
 																 .details(exception.getMessage())
 																 .build());
+	}
+
+	@ExceptionHandler(WebClientResponseException.InternalServerError.class)
+	public ResponseEntity<ErrorResponseDto> handleGeneralExceptions(WebClientResponseException.InternalServerError exception) {
+		log.error(exception.getMessage(), exception);
+		return ResponseEntity.status(INTERNAL_SERVER_ERROR)
+									.body(exception.getResponseBodyAs(ErrorResponseDto.class));
 	}
 
 	private static ResponseEntity<ErrorResponseDto> buildValidationResponse(List<ErrorResponseErrorsInnerDto> errors) {
