@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler({ WebClientResponseException.NotFound.class })
 	public ResponseEntity<ErrorResponseDto> handleNotFound(WebClientResponseException.NotFound exception) {
-		log.warn(exception.getStatusText());
+		log.error(exception.getStatusText(), exception);
 		return ResponseEntity.status(NOT_FOUND)
 									.contentType(MediaType.APPLICATION_JSON)
 									.body(exception.getResponseBodyAs(ErrorResponseDto.class));
@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler({ WebClientRequestException.class })
 	public ResponseEntity<ErrorResponseDto> handleNotAvailable(WebClientRequestException exception) {
-		log.warn(exception.getMessage());
+		log.error(exception.getMessage(), exception);
 		return ResponseEntity.status(SERVICE_UNAVAILABLE)
 									.contentType(MediaType.APPLICATION_JSON)
 									.body(ErrorResponseDto.builder()

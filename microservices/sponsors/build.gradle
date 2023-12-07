@@ -42,7 +42,7 @@ jar {
     // Spring Boot 2.5.0+ creates two JAR files: {ARCHIVE_BASE_NAME}.jar and {ARCHIVE_BASE_NAME}-plain.jar.
     // This forces gradle to just create one `{ARCHIVE_BASE_NAME}.jar`
     enabled = false
-    archivesBaseName = "$rootProject.name-sponsors"
+    archivesBaseName = "$rootProject.name-sponsors-service"
     project.version = ""
 }
 
