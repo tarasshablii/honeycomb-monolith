@@ -5,7 +5,7 @@ Hexagonal modular monolith structure for microservices evolution
 ## Overview
 
 Honeycomb Monolith is designed with a hexagonal modular structure that isolates domains and data,
-ideal for evolving into microservices. This architecture allows for flexible, maintainable, and
+ideal for seamless evolution into microservices. This architecture allows for flexible, maintainable, and
 scalable software development.
 
 ## Getting Started
@@ -23,42 +23,41 @@ Before you begin, ensure you have the following installed:
 ./gradlew clean build
 ```
 
-### Run monolith
+### Run application
 
-You can run the Honeycomb Monolith either as a Dockerized container or as a standalone Spring Boot
-service.
+You can run the application either as Dockerized containers (recommended) or as standalone Spring Boot
+services.
 
-#### Run in a docker container
-
-```shell
-docker compose -f docker-compose-monolith.yml up --build -d
-```
-
-#### Run as a Spring Boot service
-
-1. Start the required dependencies:
+#### Run as docker containers
 
 ```shell
-docker compose up -d
+docker compose --profile monolith --profile microservices up -d
 ```
 
-2. Run Spring Boot application
+#### Run as Spring Boot services
 
-```shell
-./gradlew :monolith:bootRun
-```
+1. Start the required dependencies `docker compose up -d`
+2. Run monolith Spring Boot application `./gradlew :monolith:bootRun`
+3. Run apigateway service `./gradlew :microservices:apigateway:bootRun`
+4. Run initiatives service `./gradlew :microservices:initiatives:bootRun`
+5. Run media service `./gradlew :microservices:media:bootRun`
+6. Run sponsors service `./gradlew :microservices:sponsors:bootRun`
 
 ### Accessing the Application
 
-* The application will be accessible on http://localhost:8080.
-* Swagger UI for API documentation can be accessed at http://localhost:8080/swagger-ui/index.html.
+* Feel free to use the attached [postman collection](postman-collection/Opora-API.postman_collection.json) to send
+  requests to a running application.
+* The monolith application will be accessible on http://localhost:8080.
+* Monolith Swagger UI for API documentation can be accessed at http://localhost:8080/swagger-ui/index.html.
+* The microservices application will be accessible on http://localhost:8090.
+* Microservices Swagger UI for API documentation can be accessed at http://localhost:8090/swagger-ui/index.html.
 
 ### Stop application
 
-* To stop application running in a container,
-  use `docker compose -f docker-compose-monolith.yml down -v`
-* To dependencies, use `docker compose down -v`
-* To stop Spring Boot application running in shell, kill the job via `control+c` or `Ctrl+c`
+* To stop monolith and microservices applications running in a containers,
+  use `docker compose --profile monolith --profile microservices down -v`
+* To stop dependencies, use `docker compose down -v`
+* To stop Spring Boot applications running in shell, kill each job via `control+c` or `Ctrl+c`
 
 # Reference Architecture
 
