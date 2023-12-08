@@ -1,9 +1,8 @@
 package dev.tarasshablii.opora.monolith.sponsors.endpoint;
 
-import dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.dto.SponsorRequestDto;
-import dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.dto.SponsorResponseDto;
 import dev.tarasshablii.opora.monolith.sponsors.domain.service.SponsorService;
-import dev.tarasshablii.opora.monolith.sponsors.endpoint.mapper.SponsorDtoMapper;
+import dev.tarasshablii.opora.monolith.sponsors.endpoint.dto.SponsorDto;
+import dev.tarasshablii.opora.monolith.sponsors.endpoint.mapper.SponsorDtoModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +15,9 @@ import java.util.UUID;
 public class SponsorsFacade {
 
 	private final SponsorService service;
-	private final SponsorDtoMapper mapper;
+	private final SponsorDtoModelMapper mapper;
 
-	public SponsorResponseDto createNew(SponsorRequestDto sponsor) {
+	public SponsorDto createNew(SponsorDto sponsor) {
 		return Optional.of(sponsor)
 							.map(mapper::toModel)
 							.map(service::create)
@@ -30,15 +29,15 @@ public class SponsorsFacade {
 		service.deleteById(sponsorId);
 	}
 
-	public SponsorResponseDto getById(UUID sponsorId) {
+	public SponsorDto getById(UUID sponsorId) {
 		return mapper.toDto(service.getById(sponsorId));
 	}
 
-	public List<SponsorResponseDto> getAll() {
+	public List<SponsorDto> getAll() {
 		return mapper.toDtoList(service.getAll());
 	}
 
-	public SponsorResponseDto updateById(UUID sponsorId, SponsorRequestDto update) {
+	public SponsorDto updateById(UUID sponsorId, SponsorDto update) {
 		return Optional.of(update)
 							.map(mapper::toModel)
 							.map(upd -> service.updateById(sponsorId, upd))

@@ -1,4 +1,4 @@
-package dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.dto;
+package dev.tarasshablii.opora.monolith.media.endpoint.dto;
 
 import lombok.Builder;
 import lombok.Data;

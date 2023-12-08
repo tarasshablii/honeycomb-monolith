@@ -1,7 +1,7 @@
 package dev.tarasshablii.opora.monolith.apigateway.endpoint.rest;
 
 import dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.api.MediaApi;
-import dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.dto.MediaDto;
+import dev.tarasshablii.opora.monolith.apigateway.provider.dto.MediaDto;
 import dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.dto.MediaResponseDto;
 import dev.tarasshablii.opora.monolith.apigateway.provider.MediaProvider;
 import jakarta.servlet.http.HttpServletRequest;

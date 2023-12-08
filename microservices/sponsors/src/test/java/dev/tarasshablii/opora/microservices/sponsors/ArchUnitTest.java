@@ -22,9 +22,11 @@ public class ArchUnitTest {
 							 .whereLayer("domain").mayNotAccessAnyLayer()
 							 .whereLayer("provider").mayOnlyAccessLayers("domain")
 							 .because("""
-									 Endpoint should only depend on Domain.
-									 Domain should be self-sufficient and not depend on any other layers.
-									 Provider should only depend on Domain.
-									 Endpoint and Provider should not access each other directly.""");
+									 									 
+									 1. Endpoint should only depend on Domain.
+									 2. Domain should be self-sufficient and not depend on any other layers.
+									 3. Provider should only depend on Domain.
+									 4. Endpoint and Provider should not access each other directly.
+									 """);
 
 }

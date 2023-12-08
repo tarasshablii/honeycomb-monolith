@@ -1,10 +1,9 @@
 package dev.tarasshablii.opora.monolith.initiatives.endpoint;
 
-import dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.dto.InitiativeRequestDto;
-import dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.dto.InitiativeResponseDto;
 import dev.tarasshablii.opora.monolith.initiatives.domain.model.Initiative;
 import dev.tarasshablii.opora.monolith.initiatives.domain.service.InitiativesService;
-import dev.tarasshablii.opora.monolith.initiatives.endpoint.mapper.InitiativesDtoMapper;
+import dev.tarasshablii.opora.monolith.initiatives.endpoint.dto.InitiativeDto;
+import dev.tarasshablii.opora.monolith.initiatives.endpoint.mapper.InitiativesDtoModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +18,9 @@ import static java.util.Objects.isNull;
 public class InitiativesFacade {
 
 	private final InitiativesService service;
-	private final InitiativesDtoMapper mapper;
+	private final InitiativesDtoModelMapper mapper;
 
-	public InitiativeResponseDto crateNew(InitiativeRequestDto initiative) {
+	public InitiativeDto crateNew(InitiativeDto initiative) {
 		return Optional.of(initiative)
 							.map(mapper::toModel)
 							.map(service::create)
@@ -33,16 +32,16 @@ public class InitiativesFacade {
 		service.deleteById(initiativeId);
 	}
 
-	public InitiativeResponseDto getById(UUID initiativeId) {
+	public InitiativeDto getById(UUID initiativeId) {
 		return mapper.toDto(service.getById(initiativeId));
 	}
 
-	public List<InitiativeResponseDto> getAll(UUID sponsorId) {
+	public List<InitiativeDto> getAll(UUID sponsorId) {
 		List<Initiative> initiatives = isNull(sponsorId) ? service.getAll() : service.getAllBySponsor(sponsorId);
 		return mapper.toDtoList(initiatives);
 	}
 
-	public InitiativeResponseDto updateById(UUID initiativeId, InitiativeRequestDto update) {
+	public InitiativeDto updateById(UUID initiativeId, InitiativeDto update) {
 		return Optional.of(update)
 							.map(mapper::toModel)
 							.map(upd -> service.updateById(initiativeId, upd))

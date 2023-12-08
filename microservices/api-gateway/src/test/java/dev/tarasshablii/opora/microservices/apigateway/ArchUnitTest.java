@@ -20,7 +20,9 @@ public class ArchUnitTest {
 							 .whereLayer("endpoint").mayOnlyAccessLayers("provider")
 							 .whereLayer("provider").mayNotAccessAnyLayer()
 							 .because("""
-									 Endpoint should only depend on Provider.
-									 Provider should be self-sufficient and not depend on any other layers.""");
+									           
+									 1. Endpoint should only depend on Provider.
+									 2. Provider should be self-sufficient and not depend on any other layers.
+									 """);
 
 }

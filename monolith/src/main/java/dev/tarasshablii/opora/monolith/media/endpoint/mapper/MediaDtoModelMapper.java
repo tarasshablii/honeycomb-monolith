@@ -1,13 +1,13 @@
 package dev.tarasshablii.opora.monolith.media.endpoint.mapper;
 
-import dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.dto.MediaDto;
 import dev.tarasshablii.opora.monolith.common.config.CommonMapperConfig;
 import dev.tarasshablii.opora.monolith.media.domain.model.Media;
+import dev.tarasshablii.opora.monolith.media.endpoint.dto.MediaDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(config = CommonMapperConfig.class)
-public interface MediaDtoMapper {
+public interface MediaDtoModelMapper {
 
 	@Mapping(target = "resource", source = "media")
 	@Mapping(target = "metadata.id", source = "id")

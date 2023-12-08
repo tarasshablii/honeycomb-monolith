@@ -1,8 +1,8 @@
 package dev.tarasshablii.opora.monolith.media.endpoint;
 
-import dev.tarasshablii.opora.monolith.apigateway.endpoint.rest.dto.MediaDto;
 import dev.tarasshablii.opora.monolith.media.domain.service.MediaService;
-import dev.tarasshablii.opora.monolith.media.endpoint.mapper.MediaDtoMapper;
+import dev.tarasshablii.opora.monolith.media.endpoint.dto.MediaDto;
+import dev.tarasshablii.opora.monolith.media.endpoint.mapper.MediaDtoModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.util.UUID;
 public class MediaFacade {
 
 	private final MediaService service;
-	private final MediaDtoMapper mapper;
+	private final MediaDtoModelMapper mapper;
 
 	public UUID createNew(MediaDto mediaDto) {
 		return service.create(mapper.toModel(mediaDto));
