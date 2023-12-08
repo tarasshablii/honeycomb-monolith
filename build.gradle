@@ -40,6 +40,7 @@ subprojects {
 
         implementation "org.springframework.boot:spring-boot-starter:$springBootVersion"
 
+        testImplementation "com.tngtech.archunit:archunit-junit5:$archUnitVersion"
         testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
     }
 

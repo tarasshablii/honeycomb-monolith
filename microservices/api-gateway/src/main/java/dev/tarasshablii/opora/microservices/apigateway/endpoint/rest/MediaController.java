@@ -1,9 +1,9 @@
 package dev.tarasshablii.opora.microservices.apigateway.endpoint.rest;
 
 import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.api.MediaApi;
-import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto.MediaDto;
 import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto.MediaResponseDto;
 import dev.tarasshablii.opora.microservices.apigateway.provider.MediaProvider;
+import dev.tarasshablii.opora.microservices.apigateway.provider.dto.MediaDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

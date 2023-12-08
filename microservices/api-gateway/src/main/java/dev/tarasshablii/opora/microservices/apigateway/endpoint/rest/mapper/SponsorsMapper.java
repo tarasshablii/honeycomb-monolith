@@ -1,4 +1,4 @@
-package dev.tarasshablii.opora.microservices.apigateway.provider.mapper;
+package dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.mapper;
 
 import dev.tarasshablii.opora.microservices.apigateway.config.CommonMapperConfig;
 import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto.SponsorRequestDto;

@@ -1,6 +1,6 @@
 package dev.tarasshablii.opora.microservices.apigateway.provider;
 
-import dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto.MediaDto;
+import dev.tarasshablii.opora.microservices.apigateway.provider.dto.MediaDto;
 import dev.tarasshablii.opora.microservices.apigateway.provider.rest.media.api.MediaApi;
 import dev.tarasshablii.opora.microservices.apigateway.provider.rest.media.dto.MediaResponseDto;
 import lombok.RequiredArgsConstructor;

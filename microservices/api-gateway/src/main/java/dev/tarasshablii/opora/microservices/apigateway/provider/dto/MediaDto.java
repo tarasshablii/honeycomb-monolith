@@ -1,4 +1,4 @@
-package dev.tarasshablii.opora.microservices.apigateway.endpoint.rest.dto;
+package dev.tarasshablii.opora.microservices.apigateway.provider.dto;
 
 import lombok.Builder;
 import lombok.Data;
