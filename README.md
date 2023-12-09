@@ -1,6 +1,6 @@
 # Honeycomb Monolith
 
-Hexagonal modular monolith structure for microservices evolution
+#### Hexagonal Modular Monolith Pattern for Agile Microservices Evolution
 
 ## Overview
 
@@ -64,4 +64,10 @@ docker compose --profile monolith --profile microservices up -d
 ## Example implementation
 
 This project provides a reference architecture through implementation of the
-[Opora API](https://tarasshablii.github.io/opora-api/).
+[Opora API](https://tarasshablii.github.io/opora-api/). The application enables managing humanitarian Initiatives to
+address urgent crises and provide aid to those in need. Initiatives are managed by Sponsors - either individuals or
+organizations. Application also provides means to store and retrieve Media. All inbound requests come through the
+uniform API provided by API Gateway domainless module. For the sake of technological diversity Initiatives are stored in
+MongoDB, Media files are stored in MinIO with metadata in PostgreSQL, and Sponsors reside in a separate instance of
+PostgreSQL.
+![Hexagonal Modular Diagram](images/honeycomb-monolith.png)
