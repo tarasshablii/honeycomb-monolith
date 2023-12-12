@@ -12,6 +12,6 @@ import java.util.Set;
 @Table(name = "phones")
 public class PhoneEmbeddable {
 
-	private String number;
-	private Set<PhoneType> types;
+    private String number;
+    private Set<PhoneType> types;
 }

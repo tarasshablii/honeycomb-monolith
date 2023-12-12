@@ -13,25 +13,25 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class InitiativesProvider {
 
-	private final InitiativesApi initiativesApi;
+    private final InitiativesApi initiativesApi;
 
-	public InitiativeServiceResponseDto create(InitiativeServiceRequestDto initiativeRequestDto) {
-		return initiativesApi.createInitiative(initiativeRequestDto).block();
-	}
+    public InitiativeServiceResponseDto create(InitiativeServiceRequestDto initiativeRequestDto) {
+        return initiativesApi.createInitiative(initiativeRequestDto).block();
+    }
 
-	public void deleteById(UUID initiativeId) {
-		initiativesApi.deleteInitiative(initiativeId).block();
-	}
+    public void deleteById(UUID initiativeId) {
+        initiativesApi.deleteInitiative(initiativeId).block();
+    }
 
-	public InitiativeServiceResponseDto getById(UUID initiativeId) {
-		return initiativesApi.getInitiative(initiativeId).block();
-	}
+    public InitiativeServiceResponseDto getById(UUID initiativeId) {
+        return initiativesApi.getInitiative(initiativeId).block();
+    }
 
-	public List<InitiativeServiceResponseDto> getAll(UUID sponsor) {
-		return initiativesApi.getInitiatives(sponsor).collectList().block();
-	}
+    public List<InitiativeServiceResponseDto> getAll(UUID sponsor) {
+        return initiativesApi.getInitiatives(sponsor).collectList().block();
+    }
 
-	public InitiativeServiceResponseDto updateById(UUID initiativeId, InitiativeServiceRequestDto update) {
-		return initiativesApi.updateInitiative(initiativeId, update).block();
-	}
+    public InitiativeServiceResponseDto updateById(UUID initiativeId, InitiativeServiceRequestDto update) {
+        return initiativesApi.updateInitiative(initiativeId, update).block();
+    }
 }

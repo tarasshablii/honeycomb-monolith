@@ -1,6 +1,10 @@
 package dev.tarasshablii.opora.monolith.initiatives.provider.persistence.entity;
 
-import dev.tarasshablii.opora.monolith.initiatives.domain.model.*;
+import dev.tarasshablii.opora.monolith.initiatives.domain.model.Contact;
+import dev.tarasshablii.opora.monolith.initiatives.domain.model.InitiativeItem;
+import dev.tarasshablii.opora.monolith.initiatives.domain.model.InitiativeSponsor;
+import dev.tarasshablii.opora.monolith.initiatives.domain.model.InitiativeStatus;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
@@ -10,19 +14,20 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@Builder
 @Document
 @TypeAlias("initiative")
 public class InitiativeEntity {
 
-	@Id
-	private UUID id;
-	private String title;
-	private String description;
-	private UUID media;
-	private InitiativeStatus status;
-	private Boolean isUrgent;
-	private InitiativeSponsor sponsor;
-	private List<Contact> contacts;
-	private List<DirectionsEntity> directions;
-	private List<InitiativeItem> items;
+    @Id
+    private UUID id;
+    private String title;
+    private String description;
+    private UUID media;
+    private InitiativeStatus status;
+    private Boolean isUrgent;
+    private InitiativeSponsor sponsor;
+    private List<Contact> contacts;
+    private List<DirectionsEntity> directions;
+    private List<InitiativeItem> items;
 }

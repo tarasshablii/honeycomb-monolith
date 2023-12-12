@@ -21,55 +21,55 @@ import static org.springframework.http.MediaType.parseMediaType;
 @RequiredArgsConstructor
 public class MediaProvider {
 
-	private final MediaApi mediaApi;
-	private final WebClient mediaWebClient;
+    private final MediaApi mediaApi;
+    private final WebClient mediaWebClient;
 
-	public UUID create(MediaDto mediaDto) {
+    public UUID create(MediaDto mediaDto) {
 
-		return mediaWebClient.post()
-									.contentType(parseMediaType(mediaDto.getContentType()))
-									.accept(APPLICATION_JSON)
-									.bodyValue(mediaDto.getMedia())
-									.retrieve()
-									.bodyToMono(MediaResponseDto.class)
-									.map(MediaResponseDto::getId)
-									.block();
-	}
+        return mediaWebClient.post()
+                .contentType(parseMediaType(mediaDto.getContentType()))
+                .accept(APPLICATION_JSON)
+                .bodyValue(mediaDto.getMedia())
+                .retrieve()
+                .bodyToMono(MediaResponseDto.class)
+                .map(MediaResponseDto::getId)
+                .block();
+    }
 
-	public void deleteById(UUID id) {
-		mediaApi.deleteMedia(id).block();
-	}
+    public void deleteById(UUID id) {
+        mediaApi.deleteMedia(id).block();
+    }
 
-	public MediaDto getById(UUID id) {
-		var response = mediaWebClient.get()
-											  .uri(uriBuilder -> uriBuilder.path("/%s".formatted(id)).build())
-											  .accept(parseMediaType("image/png"), parseMediaType("image/jpeg"),
-													  parseMediaType("application/json"))
-											  .retrieve()
-											  .toEntity(Resource.class)
-											  .block();
+    public MediaDto getById(UUID id) {
+        var response = mediaWebClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/%s".formatted(id)).build())
+                .accept(parseMediaType("image/png"), parseMediaType("image/jpeg"),
+                        parseMediaType("application/json"))
+                .retrieve()
+                .toEntity(Resource.class)
+                .block();
 
-		return MediaDto.builder()
-							.id(id)
-							.media(Optional.ofNullable(response)
-												.map(ResponseEntity::getBody)
-												.orElseThrow())
-							.contentType(Optional.of(response)
-														.map(ResponseEntity::getHeaders)
-														.map(HttpHeaders::getContentType)
-														.map(MediaType::toString)
-														.orElseThrow())
-							.build();
-	}
+        return MediaDto.builder()
+                .id(id)
+                .media(Optional.ofNullable(response)
+                        .map(ResponseEntity::getBody)
+                        .orElseThrow())
+                .contentType(Optional.of(response)
+                        .map(ResponseEntity::getHeaders)
+                        .map(HttpHeaders::getContentType)
+                        .map(MediaType::toString)
+                        .orElseThrow())
+                .build();
+    }
 
-	public void update(MediaDto mediaDto) {
-		mediaWebClient.put()
-						  .uri(uriBuilder -> uriBuilder.path("/%s".formatted(mediaDto.getId().toString())).build())
-						  .contentType(parseMediaType(mediaDto.getContentType()))
-						  .accept(APPLICATION_JSON)
-						  .bodyValue(mediaDto.getMedia())
-						  .retrieve()
-						  .toBodilessEntity()
-						  .block();
-	}
+    public void update(MediaDto mediaDto) {
+        mediaWebClient.put()
+                .uri(uriBuilder -> uriBuilder.path("/%s".formatted(mediaDto.getId().toString())).build())
+                .contentType(parseMediaType(mediaDto.getContentType()))
+                .accept(APPLICATION_JSON)
+                .bodyValue(mediaDto.getMedia())
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+    }
 }

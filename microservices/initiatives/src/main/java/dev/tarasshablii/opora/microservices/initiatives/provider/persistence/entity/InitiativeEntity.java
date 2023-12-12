@@ -17,15 +17,15 @@ import java.util.UUID;
 @TypeAlias("initiative")
 public class InitiativeEntity {
 
-	@Id
-	private UUID id;
-	private String title;
-	private String description;
-	private UUID media;
-	private InitiativeStatus status;
-	private Boolean isUrgent;
-	private InitiativeSponsor sponsor;
-	private List<Contact> contacts;
-	private List<DirectionsEntity> directions;
-	private List<InitiativeItem> items;
+    @Id
+    private UUID id;
+    private String title;
+    private String description;
+    private UUID media;
+    private InitiativeStatus status;
+    private Boolean isUrgent;
+    private InitiativeSponsor sponsor;
+    private List<Contact> contacts;
+    private List<DirectionsEntity> directions;
+    private List<InitiativeItem> items;
 }

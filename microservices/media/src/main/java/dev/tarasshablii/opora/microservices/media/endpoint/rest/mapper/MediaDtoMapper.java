@@ -9,13 +9,13 @@ import org.mapstruct.Mapping;
 @Mapper(config = CommonMapperConfig.class)
 public interface MediaDtoMapper {
 
-	@Mapping(target = "resource", source = "media")
-	@Mapping(target = "metadata.id", source = "id")
-	@Mapping(target = "metadata.contentType", source = "contentType")
-	Media toModel(MediaDto dto);
+    @Mapping(target = "resource", source = "media")
+    @Mapping(target = "metadata.id", source = "id")
+    @Mapping(target = "metadata.contentType", source = "contentType")
+    Media toModel(MediaDto dto);
 
-	@Mapping(target = "media", source = "resource")
-	@Mapping(target = "id", source = "metadata.id")
-	@Mapping(target = "contentType", source = "metadata.contentType")
-	MediaDto toDto(Media model);
+    @Mapping(target = "media", source = "resource")
+    @Mapping(target = "id", source = "metadata.id")
+    @Mapping(target = "contentType", source = "metadata.contentType")
+    MediaDto toDto(Media model);
 }

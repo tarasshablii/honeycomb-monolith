@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 @Mapper(config = CommonMapperConfig.class)
 public interface MetadataEntityMapper {
 
-	Metadata toModel(MetadataEntity entity);
+    Metadata toModel(MetadataEntity entity);
 
-	MetadataEntity toEntity(Metadata model);
+    MetadataEntity toEntity(Metadata model);
 }

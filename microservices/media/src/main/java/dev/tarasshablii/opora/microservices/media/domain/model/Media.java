@@ -11,13 +11,13 @@ import static java.util.Objects.isNull;
 @Data
 @Builder
 public class Media {
-	private Resource resource;
-	private Metadata metadata;
+    private Resource resource;
+    private Metadata metadata;
 
-	public void generateId() {
-		if (isNull(metadata)) {
-			metadata = new Metadata();
-		}
-		metadata.setId(UUID.randomUUID());
-	}
+    public void generateId() {
+        if (isNull(metadata)) {
+            metadata = new Metadata();
+        }
+        metadata.setId(UUID.randomUUID());
+    }
 }

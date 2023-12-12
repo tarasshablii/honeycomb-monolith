@@ -7,9 +7,9 @@ import java.util.UUID;
 
 public interface MediaProvider {
 
-	void save(Media media);
+    void save(Media media);
 
-	void deleteById(UUID mediaId);
+    void deleteById(UUID mediaId);
 
-	Optional<Media> findById(UUID mediaId);
+    Optional<Media> findById(UUID mediaId);
 }

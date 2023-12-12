@@ -13,10 +13,10 @@ import java.util.List;
 @Mapper(config = CommonMapperConfig.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SponsorDtoMapper {
 
-	@Mapping(target = "id", ignore = true)
-	Sponsor toModel(SponsorServiceRequestDto dto);
+    @Mapping(target = "id", ignore = true)
+    Sponsor toModel(SponsorServiceRequestDto dto);
 
-	SponsorServiceResponseDto toDto(Sponsor model);
+    SponsorServiceResponseDto toDto(Sponsor model);
 
-	List<SponsorServiceResponseDto> toDtoList(List<Sponsor> sponsors);
+    List<SponsorServiceResponseDto> toDtoList(List<Sponsor> sponsors);
 }

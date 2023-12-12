@@ -12,9 +12,9 @@ import java.util.List;
 @Mapper(config = CommonMapperConfig.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SponsorsDtoMapper {
 
-	SponsorDto toDto(SponsorRequestDto requestDto);
+    SponsorDto toDto(SponsorRequestDto requestDto);
 
-	SponsorResponseDto toResponseDto(SponsorDto dto);
+    SponsorResponseDto toResponseDto(SponsorDto dto);
 
-	List<SponsorResponseDto> toResponseDtoList(List<SponsorDto> dtos);
+    List<SponsorResponseDto> toResponseDtoList(List<SponsorDto> dtos);
 }

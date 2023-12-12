@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface InitiativesRepository extends MongoRepository<InitiativeEntity, UUID> {
 
-	List<InitiativeEntity> findBySponsorId(UUID sponsorId);
+    List<InitiativeEntity> findBySponsorId(UUID sponsorId);
 }

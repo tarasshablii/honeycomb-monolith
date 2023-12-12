@@ -12,7 +12,7 @@ import java.util.UUID;
 @Table(name = "metadata")
 public class MetadataEntity {
 
-	@Id
-	private UUID id;
-	private String contentType;
+    @Id
+    private UUID id;
+    private String contentType;
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper(config = CommonMapperConfig.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ContactEntityMapper {
 
-	List<ContactEntity> toEntityList(List<Contact> models);
+    List<ContactEntity> toEntityList(List<Contact> models);
 
-	List<Contact> toModelList(List<ContactEntity> entities);
+    List<Contact> toModelList(List<ContactEntity> entities);
 }

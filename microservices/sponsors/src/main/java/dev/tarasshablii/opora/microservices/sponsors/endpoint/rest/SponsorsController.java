@@ -20,45 +20,45 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SponsorsController implements SponsorsApi {
 
-	private final SponsorService service;
-	private final SponsorDtoMapper mapper;
+    private final SponsorService service;
+    private final SponsorDtoMapper mapper;
 
-	@Override
-	public ResponseEntity<SponsorServiceResponseDto> createSponsor(SponsorServiceRequestDto sponsorRequestDto) {
-		log.debug("Creating new sponsor: {}", sponsorRequestDto.getName());
-		return ResponseEntity.status(HttpStatus.CREATED).body(Optional.of(sponsorRequestDto)
-																						  .map(mapper::toModel)
-																						  .map(service::create)
-																						  .map(mapper::toDto)
-																						  .orElseThrow());
-	}
+    @Override
+    public ResponseEntity<SponsorServiceResponseDto> createSponsor(SponsorServiceRequestDto sponsorRequestDto) {
+        log.debug("Creating new sponsor: {}", sponsorRequestDto.getName());
+        return ResponseEntity.status(HttpStatus.CREATED).body(Optional.of(sponsorRequestDto)
+                .map(mapper::toModel)
+                .map(service::create)
+                .map(mapper::toDto)
+                .orElseThrow());
+    }
 
-	@Override
-	public ResponseEntity<Void> deleteSponsor(UUID id) {
-		log.debug("Deleting sponsor with id [{}]", id);
-		service.deleteById(id);
-		return ResponseEntity.noContent().build();
-	}
+    @Override
+    public ResponseEntity<Void> deleteSponsor(UUID id) {
+        log.debug("Deleting sponsor with id [{}]", id);
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 
-	@Override
-	public ResponseEntity<SponsorServiceResponseDto> getSponsor(UUID id) {
-		log.debug("Fetching sponsor for id [{}]", id);
-		return ResponseEntity.ok(mapper.toDto(service.getById(id)));
-	}
+    @Override
+    public ResponseEntity<SponsorServiceResponseDto> getSponsor(UUID id) {
+        log.debug("Fetching sponsor for id [{}]", id);
+        return ResponseEntity.ok(mapper.toDto(service.getById(id)));
+    }
 
-	@Override
-	public ResponseEntity<List<SponsorServiceResponseDto>> getSponsors() {
-		log.debug("Fetching all sponsors");
-		return ResponseEntity.ok(mapper.toDtoList(service.getAll()));
-	}
+    @Override
+    public ResponseEntity<List<SponsorServiceResponseDto>> getSponsors() {
+        log.debug("Fetching all sponsors");
+        return ResponseEntity.ok(mapper.toDtoList(service.getAll()));
+    }
 
-	@Override
-	public ResponseEntity<SponsorServiceResponseDto> updateSponsor(UUID id, SponsorServiceRequestDto sponsorRequestDto) {
-		log.debug("Updating sponsor for id [{}]", id);
-		return ResponseEntity.ok(Optional.of(sponsorRequestDto)
-													.map(mapper::toModel)
-													.map(upd -> service.updateById(id, upd))
-													.map(mapper::toDto)
-													.orElseThrow());
-	}
+    @Override
+    public ResponseEntity<SponsorServiceResponseDto> updateSponsor(UUID id, SponsorServiceRequestDto sponsorRequestDto) {
+        log.debug("Updating sponsor for id [{}]", id);
+        return ResponseEntity.ok(Optional.of(sponsorRequestDto)
+                .map(mapper::toModel)
+                .map(upd -> service.updateById(id, upd))
+                .map(mapper::toDto)
+                .orElseThrow());
+    }
 }

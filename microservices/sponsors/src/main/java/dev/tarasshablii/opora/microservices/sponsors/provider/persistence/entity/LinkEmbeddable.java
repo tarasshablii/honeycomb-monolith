@@ -10,6 +10,6 @@ import lombok.Data;
 @Table(name = "links")
 public class LinkEmbeddable {
 
-	private String url;
-	private PlatformType platform;
+    private String url;
+    private PlatformType platform;
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Address extends Directions {
 
-	private String street;
-	private String town;
-	private String directions;
+    private String street;
+    private String town;
+    private String directions;
 }

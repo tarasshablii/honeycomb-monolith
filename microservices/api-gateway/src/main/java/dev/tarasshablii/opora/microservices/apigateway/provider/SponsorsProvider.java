@@ -13,25 +13,25 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SponsorsProvider {
 
-	private final SponsorsApi sponsorsApi;
+    private final SponsorsApi sponsorsApi;
 
-	public SponsorServiceResponseDto createNew(SponsorServiceRequestDto sponsorRequestDto) {
-		return sponsorsApi.createSponsor(sponsorRequestDto).block();
-	}
+    public SponsorServiceResponseDto createNew(SponsorServiceRequestDto sponsorRequestDto) {
+        return sponsorsApi.createSponsor(sponsorRequestDto).block();
+    }
 
-	public void deleteById(UUID sponsorId) {
-		sponsorsApi.deleteSponsor(sponsorId).block();
-	}
+    public void deleteById(UUID sponsorId) {
+        sponsorsApi.deleteSponsor(sponsorId).block();
+    }
 
-	public SponsorServiceResponseDto getById(UUID sponsorId) {
-		return sponsorsApi.getSponsor(sponsorId).block();
-	}
+    public SponsorServiceResponseDto getById(UUID sponsorId) {
+        return sponsorsApi.getSponsor(sponsorId).block();
+    }
 
-	public List<SponsorServiceResponseDto> getAll() {
-		return sponsorsApi.getSponsors().collectList().block();
-	}
+    public List<SponsorServiceResponseDto> getAll() {
+        return sponsorsApi.getSponsors().collectList().block();
+    }
 
-	public SponsorServiceResponseDto updateById(UUID sponsorId, SponsorServiceRequestDto update) {
-		return sponsorsApi.updateSponsor(sponsorId, update).block();
-	}
+    public SponsorServiceResponseDto updateById(UUID sponsorId, SponsorServiceRequestDto update) {
+        return sponsorsApi.updateSponsor(sponsorId, update).block();
+    }
 }

@@ -7,5 +7,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NotFoundException extends RuntimeException {
 
-	private final String errorMessage;
+    private final String errorMessage;
 }

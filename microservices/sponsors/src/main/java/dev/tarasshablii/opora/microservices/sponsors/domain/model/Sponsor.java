@@ -7,10 +7,10 @@ import java.util.UUID;
 
 @Data
 public class Sponsor {
-	private UUID id;
-	private String userName;
-	private String name;
-	private String description;
-	private UUID media;
-	private List<Contact> contacts;
+    private UUID id;
+    private String userName;
+    private String name;
+    private String description;
+    private UUID media;
+    private List<Contact> contacts;
 }

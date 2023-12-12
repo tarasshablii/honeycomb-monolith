@@ -12,22 +12,22 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MediaFacade {
 
-	private final MediaService service;
-	private final MediaDtoModelMapper mapper;
+    private final MediaService service;
+    private final MediaDtoModelMapper mapper;
 
-	public UUID createNew(MediaDto mediaDto) {
-		return service.create(mapper.toModel(mediaDto));
-	}
+    public UUID createNew(MediaDto mediaDto) {
+        return service.create(mapper.toModel(mediaDto));
+    }
 
-	public void deleteById(UUID mediaId) {
-		service.deleteById(mediaId);
-	}
+    public void deleteById(UUID mediaId) {
+        service.deleteById(mediaId);
+    }
 
-	public MediaDto getById(UUID mediaId) {
-		return mapper.toDto(service.getById(mediaId));
-	}
+    public MediaDto getById(UUID mediaId) {
+        return mapper.toDto(service.getById(mediaId));
+    }
 
-	public void update(MediaDto mediaDto) {
-		service.update(mapper.toModel(mediaDto));
-	}
+    public void update(MediaDto mediaDto) {
+        service.update(mapper.toModel(mediaDto));
+    }
 }

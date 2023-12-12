@@ -12,10 +12,10 @@ import java.util.List;
 @Mapper(config = CommonMapperConfig.class)
 public interface SponsorsMapper {
 
-	SponsorServiceRequestDto toServiceRequestDto(SponsorRequestDto gatewayRequestDto);
+    SponsorServiceRequestDto toServiceRequestDto(SponsorRequestDto gatewayRequestDto);
 
-	SponsorResponseDto toGatewayResponseDto(SponsorServiceResponseDto serviceResponseDto);
+    SponsorResponseDto toGatewayResponseDto(SponsorServiceResponseDto serviceResponseDto);
 
-	List<SponsorResponseDto> toGatewayResponseList(List<SponsorServiceResponseDto> serviceResponseDto);
+    List<SponsorResponseDto> toGatewayResponseList(List<SponsorServiceResponseDto> serviceResponseDto);
 
 }

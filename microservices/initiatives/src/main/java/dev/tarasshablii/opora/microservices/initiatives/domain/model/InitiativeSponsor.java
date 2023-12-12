@@ -8,8 +8,8 @@ import java.util.UUID;
 @Data
 public class InitiativeSponsor {
 
-	@Indexed
-	private UUID id;
-	private String userName;
-	private String name;
+    @Indexed
+    private UUID id;
+    private String userName;
+    private String name;
 }

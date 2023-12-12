@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 @Builder
 public class MediaDto {
-	private Resource media;
-	private UUID id;
-	private String contentType;
+    private Resource media;
+    private UUID id;
+    private String contentType;
 }

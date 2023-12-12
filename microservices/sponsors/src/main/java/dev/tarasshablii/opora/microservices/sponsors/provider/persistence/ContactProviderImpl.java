@@ -13,15 +13,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ContactProviderImpl implements ContactProvider {
 
-	private final ContactRepository repository;
-	private final ContactEntityMapper mapper;
+    private final ContactRepository repository;
+    private final ContactEntityMapper mapper;
 
-	@Override
-	public List<Contact> saveAll(List<Contact> contacts) {
-		return Optional.of(contacts)
-							.map(mapper::toEntityList)
-							.map(repository::saveAll)
-							.map(mapper::toModelList)
-							.orElseThrow();
-	}
+    @Override
+    public List<Contact> saveAll(List<Contact> contacts) {
+        return Optional.of(contacts)
+                .map(mapper::toEntityList)
+                .map(repository::saveAll)
+                .map(mapper::toModelList)
+                .orElseThrow();
+    }
 }

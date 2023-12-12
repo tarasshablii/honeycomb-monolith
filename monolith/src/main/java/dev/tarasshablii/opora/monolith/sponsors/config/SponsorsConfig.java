@@ -19,34 +19,34 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-		basePackages = "dev.tarasshablii.opora.monolith.sponsors.provider.persistence",
-		entityManagerFactoryRef = "sponsorsEntityManagerFactory",
-		transactionManagerRef = "sponsorsTransactionManager"
+        basePackages = "dev.tarasshablii.opora.monolith.sponsors.provider.persistence",
+        entityManagerFactoryRef = "sponsorsEntityManagerFactory",
+        transactionManagerRef = "sponsorsTransactionManager"
 )
 public class SponsorsConfig {
 
-	@Bean
-	@Primary
-	@ConfigurationProperties(prefix = "spring.datasource")
-	public DataSource sponsorsDataSource() {
-		return DataSourceBuilder.create().build();
-	}
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource sponsorsDataSource() {
+        return DataSourceBuilder.create().build();
+    }
 
-	@Bean
-	@Primary
-	public LocalContainerEntityManagerFactoryBean sponsorsEntityManagerFactory(
-			EntityManagerFactoryBuilder builder, @Qualifier("sponsorsDataSource") DataSource sponsorsDataSource) {
-		return builder
-				.dataSource(sponsorsDataSource)
-				.packages("dev.tarasshablii.opora.monolith.sponsors.provider.persistence.entity")
-				.persistenceUnit("sponsors")
-				.build();
-	}
+    @Bean
+    @Primary
+    public LocalContainerEntityManagerFactoryBean sponsorsEntityManagerFactory(
+            EntityManagerFactoryBuilder builder, @Qualifier("sponsorsDataSource") DataSource sponsorsDataSource) {
+        return builder
+                .dataSource(sponsorsDataSource)
+                .packages("dev.tarasshablii.opora.monolith.sponsors.provider.persistence.entity")
+                .persistenceUnit("sponsors")
+                .build();
+    }
 
-	@Bean
-	@Primary
-	public PlatformTransactionManager sponsorsTransactionManager(
-			@Qualifier("sponsorsEntityManagerFactory") EntityManagerFactory sponsorsEntityManagerFactory) {
-		return new JpaTransactionManager(sponsorsEntityManagerFactory);
-	}
+    @Bean
+    @Primary
+    public PlatformTransactionManager sponsorsTransactionManager(
+            @Qualifier("sponsorsEntityManagerFactory") EntityManagerFactory sponsorsEntityManagerFactory) {
+        return new JpaTransactionManager(sponsorsEntityManagerFactory);
+    }
 }

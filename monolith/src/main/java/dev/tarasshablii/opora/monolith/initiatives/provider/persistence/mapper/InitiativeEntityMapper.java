@@ -9,30 +9,34 @@ import dev.tarasshablii.opora.monolith.initiatives.provider.persistence.entity.A
 import dev.tarasshablii.opora.monolith.initiatives.provider.persistence.entity.DirectionsEntity;
 import dev.tarasshablii.opora.monolith.initiatives.provider.persistence.entity.InitiativeEntity;
 import dev.tarasshablii.opora.monolith.initiatives.provider.persistence.entity.NovaPoshtaEntity;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.SubclassExhaustiveStrategy;
+import org.mapstruct.SubclassMapping;
+import org.mapstruct.SubclassMappings;
 
 import java.util.List;
 
 @Mapper(config = CommonMapperConfig.class,
-		subclassExhaustiveStrategy = SubclassExhaustiveStrategy.RUNTIME_EXCEPTION)
+        subclassExhaustiveStrategy = SubclassExhaustiveStrategy.RUNTIME_EXCEPTION)
 public interface InitiativeEntityMapper {
 
-	@SubclassMappings(value = {
-			@SubclassMapping(source = AddressEntity.class, target = Address.class),
-			@SubclassMapping(source = NovaPoshtaEntity.class, target = NovaPoshta.class)
-	})
-	Directions toDirectionsModel(DirectionsEntity entity);
+    @SubclassMappings(value = {
+            @SubclassMapping(source = AddressEntity.class, target = Address.class),
+            @SubclassMapping(source = NovaPoshtaEntity.class, target = NovaPoshta.class)
+    })
+    Directions toDirectionsModel(DirectionsEntity entity);
 
-	@SubclassMappings(value = {
-			@SubclassMapping(source = Address.class, target = AddressEntity.class),
-			@SubclassMapping(source = NovaPoshta.class, target = NovaPoshtaEntity.class)
-	})
-	DirectionsEntity toDirectionsEntity(Directions model);
+    @SubclassMappings(value = {
+            @SubclassMapping(source = Address.class, target = AddressEntity.class),
+            @SubclassMapping(source = NovaPoshta.class, target = NovaPoshtaEntity.class)
+    })
+    DirectionsEntity toDirectionsEntity(Directions model);
 
-	InitiativeEntity toEntity(Initiative model);
+    InitiativeEntity toEntity(Initiative model);
 
-	@Mapping(target = "progress", ignore = true)
-	Initiative toModel(InitiativeEntity entity);
+    @Mapping(target = "progress", ignore = true)
+    Initiative toModel(InitiativeEntity entity);
 
-	List<Initiative> toModelList(List<InitiativeEntity> entities);
+    List<Initiative> toModelList(List<InitiativeEntity> entities);
 }

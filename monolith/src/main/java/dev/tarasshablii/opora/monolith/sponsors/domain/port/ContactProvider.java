@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ContactProvider {
 
-	List<Contact> saveAll(List<Contact> contacts);
+    List<Contact> saveAll(List<Contact> contacts);
 }

@@ -9,16 +9,16 @@ import org.testcontainers.containers.MongoDBContainer;
  */
 public class TestContainers {
 
-	public static final MongoDBContainer initiativesContainer;
+    public static final MongoDBContainer initiativesContainer;
 
-	static {
-		initiativesContainer = new MongoDBContainer("mongo:latest");
+    static {
+        initiativesContainer = new MongoDBContainer("mongo:latest");
 
-		initiativesContainer.start();
-	}
+        initiativesContainer.start();
+    }
 
-	@DynamicPropertySource
-	static void registerProperties(DynamicPropertyRegistry registry) {
-		registry.add("spring.data.mongodb.uri", initiativesContainer::getConnectionString);
-	}
+    @DynamicPropertySource
+    static void registerProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.data.mongodb.uri", initiativesContainer::getConnectionString);
+    }
 }

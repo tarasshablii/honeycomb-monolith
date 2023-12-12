@@ -13,20 +13,20 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(MediaProperties.class)
 public class MediaConfig {
 
-	private final MediaProperties properties;
+    private final MediaProperties properties;
 
-	@Bean
-	public MinioClient minioClient() throws Exception {
-		MinioClient minioClient = MinioClient.builder()
-														 .endpoint(properties.url())
-														 .credentials(properties.username(), properties.password())
-														 .build();
+    @Bean
+    public MinioClient minioClient() throws Exception {
+        MinioClient minioClient = MinioClient.builder()
+                .endpoint(properties.url())
+                .credentials(properties.username(), properties.password())
+                .build();
 
-		boolean isExist = minioClient.bucketExists(BucketExistsArgs.builder().bucket(properties.bucket()).build());
-		if (!isExist) {
-			minioClient.makeBucket(MakeBucketArgs.builder().bucket(properties.bucket()).build());
-		}
+        boolean isExist = minioClient.bucketExists(BucketExistsArgs.builder().bucket(properties.bucket()).build());
+        if (!isExist) {
+            minioClient.makeBucket(MakeBucketArgs.builder().bucket(properties.bucket()).build());
+        }
 
-		return minioClient;
-	}
+        return minioClient;
+    }
 }

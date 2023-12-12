@@ -13,31 +13,31 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MetadataProviderImpl implements MetadataProvider {
 
-	private final MetadataRepository repository;
-	private final MetadataEntityMapper mapper;
+    private final MetadataRepository repository;
+    private final MetadataEntityMapper mapper;
 
-	@Override
-	public Metadata save(Metadata metadata) {
-		return Optional.of(metadata)
-							.map(mapper::toEntity)
-							.map(repository::save)
-							.map(mapper::toModel)
-							.orElseThrow();
-	}
+    @Override
+    public Metadata save(Metadata metadata) {
+        return Optional.of(metadata)
+                .map(mapper::toEntity)
+                .map(repository::save)
+                .map(mapper::toModel)
+                .orElseThrow();
+    }
 
-	@Override
-	public boolean existsById(UUID mediaId) {
-		return repository.existsById(mediaId);
-	}
+    @Override
+    public boolean existsById(UUID mediaId) {
+        return repository.existsById(mediaId);
+    }
 
-	@Override
-	public void deleteById(UUID mediaId) {
-		repository.deleteById(mediaId);
-	}
+    @Override
+    public void deleteById(UUID mediaId) {
+        repository.deleteById(mediaId);
+    }
 
-	@Override
-	public Optional<Metadata> findById(UUID mediaId) {
-		return repository.findById(mediaId)
-							  .map(mapper::toModel);
-	}
+    @Override
+    public Optional<Metadata> findById(UUID mediaId) {
+        return repository.findById(mediaId)
+                .map(mapper::toModel);
+    }
 }

@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @TypeAlias("address")
 public class AddressEntity extends DirectionsEntity {
 
-	private String street;
-	private String town;
-	private String directions;
+    private String street;
+    private String town;
+    private String directions;
 }

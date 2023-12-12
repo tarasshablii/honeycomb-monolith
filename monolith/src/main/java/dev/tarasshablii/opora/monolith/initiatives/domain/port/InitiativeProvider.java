@@ -7,15 +7,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface InitiativeProvider {
-	List<Initiative> findAll();
+    List<Initiative> findAll();
 
-	Initiative save(Initiative initiative);
+    Initiative save(Initiative initiative);
 
-	Optional<Initiative> findById(UUID initiativeId);
+    Optional<Initiative> findById(UUID initiativeId);
 
-	boolean existsById(UUID initiativeId);
+    boolean existsById(UUID initiativeId);
 
-	void deleteById(UUID initiativeId);
+    void deleteById(UUID initiativeId);
 
-	List<Initiative> findAllBySponsor(UUID sponsorId);
+    List<Initiative> findAllBySponsor(UUID sponsorId);
 }

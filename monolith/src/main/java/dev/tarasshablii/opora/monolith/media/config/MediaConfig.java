@@ -25,49 +25,49 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableConfigurationProperties(MediaProperties.class)
 @EnableJpaRepositories(
-		basePackages = "dev.tarasshablii.opora.monolith.media.provider.persistence.metadata",
-		entityManagerFactoryRef = "mediaEntityManagerFactory",
-		transactionManagerRef = "mediaTransactionManager"
+        basePackages = "dev.tarasshablii.opora.monolith.media.provider.persistence.metadata",
+        entityManagerFactoryRef = "mediaEntityManagerFactory",
+        transactionManagerRef = "mediaTransactionManager"
 )
 public class MediaConfig {
 
-	private final MediaProperties properties;
+    private final MediaProperties properties;
 
-	@Bean
-	public MinioClient minioClient() throws Exception {
-		MinioClient minioClient = MinioClient.builder()
-														 .endpoint(properties.url())
-														 .credentials(properties.username(), properties.password())
-														 .build();
+    @Bean
+    public MinioClient minioClient() throws Exception {
+        MinioClient minioClient = MinioClient.builder()
+                .endpoint(properties.url())
+                .credentials(properties.username(), properties.password())
+                .build();
 
-		boolean isExist = minioClient.bucketExists(BucketExistsArgs.builder().bucket(properties.bucket()).build());
-		if (!isExist) {
-			minioClient.makeBucket(MakeBucketArgs.builder().bucket(properties.bucket()).build());
-		}
+        boolean isExist = minioClient.bucketExists(BucketExistsArgs.builder().bucket(properties.bucket()).build());
+        if (!isExist) {
+            minioClient.makeBucket(MakeBucketArgs.builder().bucket(properties.bucket()).build());
+        }
 
-		return minioClient;
-	}
+        return minioClient;
+    }
 
-	@Bean
-	@ConfigurationProperties(prefix = "media.metadata.datasource")
-	public DataSource mediaDataSource() {
-		return DataSourceBuilder.create().build();
-	}
+    @Bean
+    @ConfigurationProperties(prefix = "media.metadata.datasource")
+    public DataSource mediaDataSource() {
+        return DataSourceBuilder.create().build();
+    }
 
-	@Bean
-	public LocalContainerEntityManagerFactoryBean mediaEntityManagerFactory(
-			EntityManagerFactoryBuilder builder, @Qualifier("mediaDataSource") DataSource mediaDataSource) {
-		return builder
-				.dataSource(mediaDataSource)
-				.packages("dev.tarasshablii.opora.monolith.media.provider.persistence.metadata.entity")
-				.persistenceUnit("media")
-				.build();
-	}
+    @Bean
+    public LocalContainerEntityManagerFactoryBean mediaEntityManagerFactory(
+            EntityManagerFactoryBuilder builder, @Qualifier("mediaDataSource") DataSource mediaDataSource) {
+        return builder
+                .dataSource(mediaDataSource)
+                .packages("dev.tarasshablii.opora.monolith.media.provider.persistence.metadata.entity")
+                .persistenceUnit("media")
+                .build();
+    }
 
-	@Bean
-	public PlatformTransactionManager mediaTransactionManager(
-			@Qualifier("mediaEntityManagerFactory") EntityManagerFactory mediaEntityManagerFactory) {
-		return new JpaTransactionManager(mediaEntityManagerFactory);
-	}
+    @Bean
+    public PlatformTransactionManager mediaTransactionManager(
+            @Qualifier("mediaEntityManagerFactory") EntityManagerFactory mediaEntityManagerFactory) {
+        return new JpaTransactionManager(mediaEntityManagerFactory);
+    }
 
 }

@@ -20,46 +20,46 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class InitiativesController implements InitiativesApi {
 
-	private final InitiativesProvider initiativesProvider;
-	private final InitiativesMapper mapper;
+    private final InitiativesProvider initiativesProvider;
+    private final InitiativesMapper mapper;
 
-	@Override
-	public ResponseEntity<InitiativeResponseDto> createInitiative(InitiativeRequestDto initiativeRequestDto) {
-		log.debug("Creating new initiative: {}", initiativeRequestDto.getTitle());
-		return ResponseEntity.status(HttpStatus.CREATED)
-									.body(Optional.of(initiativeRequestDto)
-													  .map(mapper::toServiceRequestDto)
-													  .map(initiativesProvider::create)
-													  .map(mapper::toGatewayResponseDto)
-													  .orElseThrow());
-	}
+    @Override
+    public ResponseEntity<InitiativeResponseDto> createInitiative(InitiativeRequestDto initiativeRequestDto) {
+        log.debug("Creating new initiative: {}", initiativeRequestDto.getTitle());
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Optional.of(initiativeRequestDto)
+                        .map(mapper::toServiceRequestDto)
+                        .map(initiativesProvider::create)
+                        .map(mapper::toGatewayResponseDto)
+                        .orElseThrow());
+    }
 
-	@Override
-	public ResponseEntity<Void> deleteInitiative(UUID id) {
-		log.debug("Deleting initiative with id [{}]", id);
-		initiativesProvider.deleteById(id);
-		return ResponseEntity.noContent().build();
-	}
+    @Override
+    public ResponseEntity<Void> deleteInitiative(UUID id) {
+        log.debug("Deleting initiative with id [{}]", id);
+        initiativesProvider.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 
-	@Override
-	public ResponseEntity<InitiativeResponseDto> getInitiative(UUID id) {
-		log.debug("Fetching initiative for id [{}]", id);
-		return ResponseEntity.ok(mapper.toGatewayResponseDto(initiativesProvider.getById(id)));
-	}
+    @Override
+    public ResponseEntity<InitiativeResponseDto> getInitiative(UUID id) {
+        log.debug("Fetching initiative for id [{}]", id);
+        return ResponseEntity.ok(mapper.toGatewayResponseDto(initiativesProvider.getById(id)));
+    }
 
-	@Override
-	public ResponseEntity<List<InitiativeResponseDto>> getInitiatives(UUID sponsor) {
-		log.debug("Fetching all initiatives");
-		return ResponseEntity.ok(mapper.toGatewayResponseList(initiativesProvider.getAll(sponsor)));
-	}
+    @Override
+    public ResponseEntity<List<InitiativeResponseDto>> getInitiatives(UUID sponsor) {
+        log.debug("Fetching all initiatives");
+        return ResponseEntity.ok(mapper.toGatewayResponseList(initiativesProvider.getAll(sponsor)));
+    }
 
-	@Override
-	public ResponseEntity<InitiativeResponseDto> updateInitiative(UUID id, InitiativeRequestDto initiativeRequestDto) {
-		log.debug("Updating initiative for id [{}]", id);
-		return ResponseEntity.ok(Optional.of(initiativeRequestDto)
-													.map(mapper::toServiceRequestDto)
-													.map(upd -> initiativesProvider.updateById(id, upd))
-													.map(mapper::toGatewayResponseDto)
-													.orElseThrow());
-	}
+    @Override
+    public ResponseEntity<InitiativeResponseDto> updateInitiative(UUID id, InitiativeRequestDto initiativeRequestDto) {
+        log.debug("Updating initiative for id [{}]", id);
+        return ResponseEntity.ok(Optional.of(initiativeRequestDto)
+                .map(mapper::toServiceRequestDto)
+                .map(upd -> initiativesProvider.updateById(id, upd))
+                .map(mapper::toGatewayResponseDto)
+                .orElseThrow());
+    }
 }

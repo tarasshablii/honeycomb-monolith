@@ -14,34 +14,34 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SponsorsFacade {
 
-	private final SponsorService service;
-	private final SponsorDtoModelMapper mapper;
+    private final SponsorService service;
+    private final SponsorDtoModelMapper mapper;
 
-	public SponsorDto createNew(SponsorDto sponsor) {
-		return Optional.of(sponsor)
-							.map(mapper::toModel)
-							.map(service::create)
-							.map(mapper::toDto)
-							.orElseThrow();
-	}
+    public SponsorDto createNew(SponsorDto sponsor) {
+        return Optional.of(sponsor)
+                .map(mapper::toModel)
+                .map(service::create)
+                .map(mapper::toDto)
+                .orElseThrow();
+    }
 
-	public void deleteById(UUID sponsorId) {
-		service.deleteById(sponsorId);
-	}
+    public void deleteById(UUID sponsorId) {
+        service.deleteById(sponsorId);
+    }
 
-	public SponsorDto getById(UUID sponsorId) {
-		return mapper.toDto(service.getById(sponsorId));
-	}
+    public SponsorDto getById(UUID sponsorId) {
+        return mapper.toDto(service.getById(sponsorId));
+    }
 
-	public List<SponsorDto> getAll() {
-		return mapper.toDtoList(service.getAll());
-	}
+    public List<SponsorDto> getAll() {
+        return mapper.toDtoList(service.getAll());
+    }
 
-	public SponsorDto updateById(UUID sponsorId, SponsorDto update) {
-		return Optional.of(update)
-							.map(mapper::toModel)
-							.map(upd -> service.updateById(sponsorId, upd))
-							.map(mapper::toDto)
-							.orElseThrow();
-	}
+    public SponsorDto updateById(UUID sponsorId, SponsorDto update) {
+        return Optional.of(update)
+                .map(mapper::toModel)
+                .map(upd -> service.updateById(sponsorId, upd))
+                .map(mapper::toDto)
+                .orElseThrow();
+    }
 }

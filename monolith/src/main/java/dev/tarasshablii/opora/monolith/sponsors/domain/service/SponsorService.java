@@ -17,44 +17,44 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SponsorService {
 
-	private static final String NOT_FOUND_MESSAGE = "Sponsor with id [%s] not found";
-	private final SponsorProvider sponsorProvider;
-	private final ContactProvider contactProvider;
+    private static final String NOT_FOUND_MESSAGE = "Sponsor with id [%s] not found";
+    private final SponsorProvider sponsorProvider;
+    private final ContactProvider contactProvider;
 
-	public Sponsor create(Sponsor sponsor) {
-		saveContacts(sponsor);
-		return sponsorProvider.save(sponsor);
-	}
+    public Sponsor create(Sponsor sponsor) {
+        saveContacts(sponsor);
+        return sponsorProvider.save(sponsor);
+    }
 
-	public void deleteById(UUID sponsorId) {
-		if (!sponsorProvider.existsById(sponsorId)) {
-			throw new NotFoundException(NOT_FOUND_MESSAGE.formatted(sponsorId));
-		}
-		sponsorProvider.deleteById(sponsorId);
-	}
+    public void deleteById(UUID sponsorId) {
+        if (!sponsorProvider.existsById(sponsorId)) {
+            throw new NotFoundException(NOT_FOUND_MESSAGE.formatted(sponsorId));
+        }
+        sponsorProvider.deleteById(sponsorId);
+    }
 
-	public Sponsor getById(UUID sponsorId) {
-		return sponsorProvider.findById(sponsorId)
-									 .orElseThrow(() -> new NotFoundException(NOT_FOUND_MESSAGE.formatted(sponsorId)));
-	}
+    public Sponsor getById(UUID sponsorId) {
+        return sponsorProvider.findById(sponsorId)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_MESSAGE.formatted(sponsorId)));
+    }
 
-	public List<Sponsor> getAll() {
-		return sponsorProvider.findAll();
-	}
+    public List<Sponsor> getAll() {
+        return sponsorProvider.findAll();
+    }
 
-	public Sponsor updateById(UUID sponsorId, Sponsor update) {
-		if (!sponsorProvider.existsById(sponsorId)) {
-			throw new NotFoundException(NOT_FOUND_MESSAGE.formatted(sponsorId));
-		}
-		update.setId(sponsorId);
-		saveContacts(update);
-		return sponsorProvider.save(update);
-	}
+    public Sponsor updateById(UUID sponsorId, Sponsor update) {
+        if (!sponsorProvider.existsById(sponsorId)) {
+            throw new NotFoundException(NOT_FOUND_MESSAGE.formatted(sponsorId));
+        }
+        update.setId(sponsorId);
+        saveContacts(update);
+        return sponsorProvider.save(update);
+    }
 
-	private void saveContacts(Sponsor sponsor) {
-		List<Contact> contacts = sponsor.getContacts();
-		contacts = contactProvider.saveAll(contacts);
-		sponsor.setContacts(contacts);
-	}
+    private void saveContacts(Sponsor sponsor) {
+        List<Contact> contacts = sponsor.getContacts();
+        contacts = contactProvider.saveAll(contacts);
+        sponsor.setContacts(contacts);
+    }
 
 }

@@ -5,9 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "media.database")
 public record MediaProperties(
-		String username,
-		String password,
-		String url,
-		String bucket
+        String username,
+        String password,
+        String url,
+        String bucket
 ) {
 }

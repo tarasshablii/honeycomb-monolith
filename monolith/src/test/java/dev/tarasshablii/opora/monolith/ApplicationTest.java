@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ApplicationTest extends TestContainers {
 
-	@Test
-	void contextLoads() {
-
-	}
+    @Test
+    void contextLoads() {}
 }

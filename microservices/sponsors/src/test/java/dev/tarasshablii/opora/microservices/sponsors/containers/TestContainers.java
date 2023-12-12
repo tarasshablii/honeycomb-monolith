@@ -9,22 +9,22 @@ import org.testcontainers.containers.PostgreSQLContainer;
  */
 public class TestContainers {
 
-	public static final PostgreSQLContainer<?> sponsorsContainer;
+    public static final PostgreSQLContainer<?> sponsorsContainer;
 
-	static {
-		sponsorsContainer = new PostgreSQLContainer<>("postgres:latest")
-				.withDatabaseName("sponsors")
-				.withUsername("sponsors_user")
-				.withPassword("sponsors_pass")
-				.withUrlParam("stringtype", "unspecified");
+    static {
+        sponsorsContainer = new PostgreSQLContainer<>("postgres:latest")
+                .withDatabaseName("sponsors")
+                .withUsername("sponsors_user")
+                .withPassword("sponsors_pass")
+                .withUrlParam("stringtype", "unspecified");
 
-		sponsorsContainer.start();
-	}
+        sponsorsContainer.start();
+    }
 
-	@DynamicPropertySource
-	static void registerProperties(DynamicPropertyRegistry registry) {
-		registry.add("spring.datasource.url", sponsorsContainer::getJdbcUrl);
-		registry.add("spring.datasource.username", sponsorsContainer::getUsername);
-		registry.add("spring.datasource.password", sponsorsContainer::getPassword);
-	}
+    @DynamicPropertySource
+    static void registerProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", sponsorsContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", sponsorsContainer::getUsername);
+        registry.add("spring.datasource.password", sponsorsContainer::getPassword);
+    }
 }

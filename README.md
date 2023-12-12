@@ -1,6 +1,6 @@
 # Honeycomb Monolith
 
-#### Hexagonal Modular Monolith Pattern for Agile Microservices Evolution
+#### Hexagonal Modular Pattern for Agile Microservices Evolution
 
 ## Overview
 

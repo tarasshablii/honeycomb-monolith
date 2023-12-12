@@ -8,12 +8,12 @@ import java.util.List;
 @Mapper(config = CommonMapperConfig.class)
 public interface SponsorDtoMapper {
 
-	dev.tarasshablii.opora.monolith.sponsors.endpoint.dto.SponsorDto toInboundDto(
-			dev.tarasshablii.opora.monolith.apigateway.provider.dto.SponsorDto model);
+    dev.tarasshablii.opora.monolith.sponsors.endpoint.dto.SponsorDto toInboundDto(
+            dev.tarasshablii.opora.monolith.apigateway.provider.dto.SponsorDto model);
 
-	dev.tarasshablii.opora.monolith.apigateway.provider.dto.SponsorDto toOutboundDto(
-			dev.tarasshablii.opora.monolith.sponsors.endpoint.dto.SponsorDto dto);
+    dev.tarasshablii.opora.monolith.apigateway.provider.dto.SponsorDto toOutboundDto(
+            dev.tarasshablii.opora.monolith.sponsors.endpoint.dto.SponsorDto dto);
 
-	List<dev.tarasshablii.opora.monolith.apigateway.provider.dto.SponsorDto> toOutboundDtoList(
-			List<dev.tarasshablii.opora.monolith.sponsors.endpoint.dto.SponsorDto> sponsors);
+    List<dev.tarasshablii.opora.monolith.apigateway.provider.dto.SponsorDto> toOutboundDtoList(
+            List<dev.tarasshablii.opora.monolith.sponsors.endpoint.dto.SponsorDto> sponsors);
 }

@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper(config = CommonMapperConfig.class)
 public interface SponsorDtoModelMapper {
 
-	Sponsor toModel(SponsorDto dto);
+    Sponsor toModel(SponsorDto dto);
 
-	SponsorDto toDto(Sponsor model);
+    SponsorDto toDto(Sponsor model);
 
-	List<SponsorDto> toDtoList(List<Sponsor> sponsors);
+    List<SponsorDto> toDtoList(List<Sponsor> sponsors);
 }

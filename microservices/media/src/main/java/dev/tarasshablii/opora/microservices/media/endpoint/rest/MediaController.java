@@ -24,55 +24,55 @@ import static org.springframework.http.HttpStatus.OK;
 @RequiredArgsConstructor
 public class MediaController implements MediaApi {
 
-	private final HttpServletRequest request;
-	private final MediaService service;
-	private final MediaDtoMapper mapper;
+    private final HttpServletRequest request;
+    private final MediaService service;
+    private final MediaDtoMapper mapper;
 
-	@Override
-	public ResponseEntity<MediaResponseDto> createMedia(Resource body) {
+    @Override
+    public ResponseEntity<MediaResponseDto> createMedia(Resource body) {
 
-		log.debug("Creating new media");
-		MediaDto mediaDto = MediaDto.builder()
-											 .media(body)
-											 .contentType(request.getHeader(HttpHeaders.CONTENT_TYPE))
-											 .build();
-		UUID id = service.create(mapper.toModel(mediaDto));
+        log.debug("Creating new media");
+        MediaDto mediaDto = MediaDto.builder()
+                .media(body)
+                .contentType(request.getHeader(HttpHeaders.CONTENT_TYPE))
+                .build();
+        UUID id = service.create(mapper.toModel(mediaDto));
 
-		return ResponseEntity.status(CREATED)
-									.body(MediaResponseDto.builder()
-																 .id(id)
-																 .build());
-	}
+        return ResponseEntity.status(CREATED)
+                .body(MediaResponseDto.builder()
+                        .id(id)
+                        .build());
+    }
 
-	@Override
-	public ResponseEntity<Void> deleteMedia(UUID id) {
+    @Override
+    public ResponseEntity<Void> deleteMedia(UUID id) {
 
-		log.debug("Deleting media with id [{}]", id);
-		service.deleteById(id);
-		return ResponseEntity.noContent().build();
-	}
+        log.debug("Deleting media with id [{}]", id);
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 
-	@Override
-	public ResponseEntity<Resource> getMedia(UUID id) {
+    @Override
+    public ResponseEntity<Resource> getMedia(UUID id) {
 
-		log.debug("Fetching media for id [{}]", id);
-		MediaDto mediaDto = mapper.toDto(service.getById(id));
-		return ResponseEntity.status(OK)
-									.contentType(MediaType.parseMediaType(mediaDto.getContentType()))
-									.body(mediaDto.getMedia());
-	}
+        log.debug("Fetching media for id [{}]", id);
+        MediaDto mediaDto = mapper.toDto(service.getById(id));
+        return ResponseEntity.status(OK)
+                .contentType(MediaType.parseMediaType(mediaDto.getContentType()))
+                .body(mediaDto.getMedia());
+    }
 
-	@Override
-	public ResponseEntity<Void> updateMedia(UUID id, Resource body) {
+    @Override
+    public ResponseEntity<Void> updateMedia(UUID id, Resource body) {
 
-		log.debug("Updating media for id [{}]", id);
-		MediaDto mediaDto = MediaDto.builder()
-											 .id(id)
-											 .media(body)
-											 .contentType(request.getHeader(HttpHeaders.CONTENT_TYPE))
-											 .build();
-		service.update(mapper.toModel(mediaDto));
+        log.debug("Updating media for id [{}]", id);
+        MediaDto mediaDto = MediaDto.builder()
+                .id(id)
+                .media(body)
+                .contentType(request.getHeader(HttpHeaders.CONTENT_TYPE))
+                .build();
+        service.update(mapper.toModel(mediaDto));
 
-		return ResponseEntity.noContent().build();
-	}
+        return ResponseEntity.noContent().build();
+    }
 }

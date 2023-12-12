@@ -14,34 +14,34 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SponsorsProvider {
 
-	private final SponsorsFacade sponsorsFacade;
-	private final SponsorDtoMapper mapper;
+    private final SponsorsFacade sponsorsFacade;
+    private final SponsorDtoMapper mapper;
 
-	public SponsorDto createNew(SponsorDto sponsorDto) {
-		return Optional.of(sponsorDto)
-							.map(mapper::toInboundDto)
-							.map(sponsorsFacade::createNew)
-							.map(mapper::toOutboundDto)
-							.orElseThrow();
-	}
+    public SponsorDto createNew(SponsorDto sponsorDto) {
+        return Optional.of(sponsorDto)
+                .map(mapper::toInboundDto)
+                .map(sponsorsFacade::createNew)
+                .map(mapper::toOutboundDto)
+                .orElseThrow();
+    }
 
-	public void deleteById(UUID sponsorId) {
-		sponsorsFacade.deleteById(sponsorId);
-	}
+    public void deleteById(UUID sponsorId) {
+        sponsorsFacade.deleteById(sponsorId);
+    }
 
-	public SponsorDto getById(UUID sponsorId) {
-		return mapper.toOutboundDto(sponsorsFacade.getById(sponsorId));
-	}
+    public SponsorDto getById(UUID sponsorId) {
+        return mapper.toOutboundDto(sponsorsFacade.getById(sponsorId));
+    }
 
-	public List<SponsorDto> getAll() {
-		return mapper.toOutboundDtoList(sponsorsFacade.getAll());
-	}
+    public List<SponsorDto> getAll() {
+        return mapper.toOutboundDtoList(sponsorsFacade.getAll());
+    }
 
-	public SponsorDto updateById(UUID sponsorId, SponsorDto update) {
-		return Optional.of(update)
-							.map(mapper::toInboundDto)
-							.map(upd -> sponsorsFacade.updateById(sponsorId, upd))
-							.map(mapper::toOutboundDto)
-							.orElseThrow();
-	}
+    public SponsorDto updateById(UUID sponsorId, SponsorDto update) {
+        return Optional.of(update)
+                .map(mapper::toInboundDto)
+                .map(upd -> sponsorsFacade.updateById(sponsorId, upd))
+                .map(mapper::toOutboundDto)
+                .orElseThrow();
+    }
 }
