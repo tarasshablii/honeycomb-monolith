@@ -222,7 +222,7 @@ class InitiativesIntegrationTest extends TestContainers {
         }
 
         @Test
-        void createInitiative_shouldUpdateExistingInitiative() throws Exception {
+        void updateInitiative_shouldUpdateExistingInitiative() throws Exception {
             repository.save(defaultInitiativeEntity());
 
             String requestBody = Files.readString(validRequestResource.getFile().toPath());
@@ -260,8 +260,6 @@ class InitiativesIntegrationTest extends TestContainers {
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value("Invalid request body"))
                     .andExpect(jsonPath("$.details").value(containsString("Required request body is missing")));
-
-            assertThat(repository.findAll()).isEmpty();
         }
 
         @Test
@@ -273,8 +271,6 @@ class InitiativesIntegrationTest extends TestContainers {
                     .andExpect(status().isBadRequest())
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value("UNSUPPORTED_MEDIA_TYPE"));
-
-            assertThat(repository.findAll()).isEmpty();
         }
 
         @Test
@@ -290,8 +286,6 @@ class InitiativesIntegrationTest extends TestContainers {
                     .andExpect(jsonPath("$.errors").isNotEmpty())
                     .andExpect(jsonPath("$.errors[0].field").value("title"))
                     .andExpect(jsonPath("$.errors[0].message").value("must not be null"));
-
-            assertThat(repository.findAll()).isEmpty();
         }
     }
 

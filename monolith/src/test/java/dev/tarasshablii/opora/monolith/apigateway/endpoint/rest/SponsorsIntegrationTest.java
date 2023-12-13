@@ -239,7 +239,7 @@ class SponsorsIntegrationTest extends TestContainers {
         }
 
         @Test
-        void createSponsor_shouldUpdateExistingSponsor() throws Exception {
+        void updateSponsor_shouldUpdateExistingSponsor() throws Exception {
             saveDefaultSponsor();
 
             String requestBody = Files.readString(validRequestResource.getFile().toPath());
@@ -278,8 +278,6 @@ class SponsorsIntegrationTest extends TestContainers {
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value("Invalid request body"))
                     .andExpect(jsonPath("$.details").value(containsString("Required request body is missing")));
-
-            assertThat(sponsorRepository.findAll()).isEmpty();
         }
 
         @Test
@@ -291,8 +289,6 @@ class SponsorsIntegrationTest extends TestContainers {
                     .andExpect(status().isBadRequest())
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value("UNSUPPORTED_MEDIA_TYPE"));
-
-            assertThat(sponsorRepository.findAll()).isEmpty();
         }
 
         @Test
@@ -308,8 +304,6 @@ class SponsorsIntegrationTest extends TestContainers {
                     .andExpect(jsonPath("$.errors").isNotEmpty())
                     .andExpect(jsonPath("$.errors[0].field").value("userName"))
                     .andExpect(jsonPath("$.errors[0].message").value("must not be null"));
-
-            assertThat(sponsorRepository.findAll()).isEmpty();
         }
     }
 

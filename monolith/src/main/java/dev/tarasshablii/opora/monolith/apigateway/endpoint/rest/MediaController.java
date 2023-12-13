@@ -71,6 +71,6 @@ public class MediaController implements MediaApi {
                 .build();
         mediaProvider.update(mediaDto);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }
