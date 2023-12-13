@@ -4,6 +4,7 @@ import dev.tarasshablii.opora.microservices.initiatives.domain.model.Contact;
 import dev.tarasshablii.opora.microservices.initiatives.domain.model.InitiativeItem;
 import dev.tarasshablii.opora.microservices.initiatives.domain.model.InitiativeSponsor;
 import dev.tarasshablii.opora.microservices.initiatives.domain.model.InitiativeStatus;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@Builder
 @Document
 @TypeAlias("initiative")
 public class InitiativeEntity {

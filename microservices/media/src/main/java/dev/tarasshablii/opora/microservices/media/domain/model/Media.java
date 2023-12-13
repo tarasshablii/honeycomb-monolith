@@ -16,7 +16,7 @@ public class Media {
 
     public void generateId() {
         if (isNull(metadata)) {
-            metadata = new Metadata();
+            metadata = Metadata.builder().build();
         }
         metadata.setId(UUID.randomUUID());
     }

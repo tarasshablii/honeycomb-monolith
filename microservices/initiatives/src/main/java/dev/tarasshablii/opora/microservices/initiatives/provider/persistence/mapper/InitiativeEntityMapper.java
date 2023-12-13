@@ -33,7 +33,6 @@ public interface InitiativeEntityMapper {
     })
     DirectionsEntity toDirectionsEntity(Directions model);
 
-
     InitiativeEntity toEntity(Initiative model);
 
     @Mapping(target = "progress", ignore = true)

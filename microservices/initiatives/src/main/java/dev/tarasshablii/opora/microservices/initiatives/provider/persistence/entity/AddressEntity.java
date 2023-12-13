@@ -1,10 +1,12 @@
 package dev.tarasshablii.opora.microservices.initiatives.provider.persistence.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@Builder
 @Document
 @TypeAlias("address")
 public class AddressEntity extends DirectionsEntity {

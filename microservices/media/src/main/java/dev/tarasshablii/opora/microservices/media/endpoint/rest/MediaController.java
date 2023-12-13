@@ -73,6 +73,6 @@ public class MediaController implements MediaApi {
                 .build();
         service.update(mapper.toModel(mediaDto));
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }
