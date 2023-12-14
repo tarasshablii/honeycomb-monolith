@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "DELETE",
+    "urlPath": "/v1/initiatives/7632105a-3dfc-4e16-87fe-d743ba5ae922",
+    "headers": {
+      "Accept": {
+        "equalTo": "application/json"
+      }
+    }
+  },
+  "response": {
+    "jsonBody": {
+      "timestamp": "2023-12-14T09:28:22.044672Z",
+      "message": "Initiative with id [7632105a-3dfc-4e16-87fe-d743ba5ae922] not found"
+    },
+    "status": "404",
+    "statusMessage": "HTTP/1.1 200",
+    "headers": {
+      "Keep-Alive": "timeout=60",
+      "Connection": "keep-alive",
+      "Date": "Thu, 27 Jul 2023 14:17:37 GMT",
+      "Content-Type": "application/json"
+    }
+  }
+}

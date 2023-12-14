@@ -55,7 +55,7 @@ class InitiativesIntegrationTest extends TestContainers {
     @Nested
     class GetAllInitiativesTest {
 
-        @Value("classpath:response/initiatives/200_get_all.json")
+        @Value("classpath:response/initiatives/get_all_200.json")
         private Resource responseResource;
         private MockHttpServletRequestBuilder get;
 
@@ -90,9 +90,9 @@ class InitiativesIntegrationTest extends TestContainers {
     @Nested
     class CreateInitiativeTest {
 
-        @Value("classpath:request/initiatives/200_create_initiative.json")
+        @Value("classpath:request/initiatives/create_initiative_200.json")
         private Resource validRequestResource;
-        @Value("classpath:request/initiatives/400_create_initiative.json")
+        @Value("classpath:request/initiatives/create_initiative_400.json")
         private Resource invalidRequestResource;
         private MockHttpServletRequestBuilder post;
 
@@ -175,7 +175,7 @@ class InitiativesIntegrationTest extends TestContainers {
     @Nested
     class GetInitiativeTest {
 
-        @Value("classpath:response/initiatives/200_get_initiative.json")
+        @Value("classpath:response/initiatives/get_initiative_200.json")
         private Resource responseResource;
         private MockHttpServletRequestBuilder get;
 
@@ -210,9 +210,9 @@ class InitiativesIntegrationTest extends TestContainers {
     @Nested
     class UpdateInitiativeTest {
 
-        @Value("classpath:request/initiatives/200_update_initiative.json")
+        @Value("classpath:request/initiatives/update_initiative_200.json")
         private Resource validRequestResource;
-        @Value("classpath:request/initiatives/400_update_initiative.json")
+        @Value("classpath:request/initiatives/update_initiative_400.json")
         private Resource invalidRequestResource;
         private MockHttpServletRequestBuilder put;
 

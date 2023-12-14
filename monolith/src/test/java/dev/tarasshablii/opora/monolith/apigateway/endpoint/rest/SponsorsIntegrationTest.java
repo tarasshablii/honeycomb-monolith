@@ -109,9 +109,9 @@ class SponsorsIntegrationTest extends TestContainers {
     class CreateSponsorTest {
 
 
-        @Value("classpath:request/sponsors/200_create_sponsor.json")
+        @Value("classpath:request/sponsors/create_sponsor_200.json")
         private Resource validRequestResource;
-        @Value("classpath:request/sponsors/400_create_sponsor.json")
+        @Value("classpath:request/sponsors/create_sponsor_400.json")
         private Resource invalidRequestResource;
         private MockHttpServletRequestBuilder post;
 
@@ -227,9 +227,9 @@ class SponsorsIntegrationTest extends TestContainers {
     @Nested
     class UpdateSponsorTest {
 
-        @Value("classpath:request/sponsors/200_update_sponsor.json")
+        @Value("classpath:request/sponsors/update_sponsor_200.json")
         private Resource validRequestResource;
-        @Value("classpath:request/sponsors/400_update_sponsor.json")
+        @Value("classpath:request/sponsors/update_sponsor_400.json")
         private Resource invalidRequestResource;
         private MockHttpServletRequestBuilder put;
 

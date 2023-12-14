@@ -59,7 +59,7 @@ class MediaIntegrationTest extends TestContainers {
     @Nested
     class CreateMediaTest {
 
-        @Value("classpath:request/media/200_create_media.jpeg")
+        @Value("classpath:request/media/create_media_200.jpeg")
         private Resource validRequestResource;
         private MockHttpServletRequestBuilder post;
 
@@ -129,7 +129,7 @@ class MediaIntegrationTest extends TestContainers {
     @Nested
     class GetMediaTest {
 
-        @Value("classpath:response/media/200_get_media.jpeg")
+        @Value("classpath:response/media/get_media_200.jpeg")
         private Resource responseResource;
         private MockHttpServletRequestBuilder get;
 
@@ -162,9 +162,9 @@ class MediaIntegrationTest extends TestContainers {
     @Nested
     class UpdateMediaTest {
 
-        @Value("classpath:request/media/200_create_media.jpeg")
+        @Value("classpath:request/media/create_media_200.jpeg")
         private Resource existingResource;
-        @Value("classpath:request/media/200_update_media.jpeg")
+        @Value("classpath:request/media/update_media_200.jpeg")
         private Resource updateResource;
         private MockHttpServletRequestBuilder put;
 
@@ -226,7 +226,7 @@ class MediaIntegrationTest extends TestContainers {
     @Nested
     class DeleteMediaTest {
 
-        @Value("classpath:request/media/200_create_media.jpeg")
+        @Value("classpath:request/media/create_media_200.jpeg")
         private Resource existingResource;
 
         private MockHttpServletRequestBuilder delete;
