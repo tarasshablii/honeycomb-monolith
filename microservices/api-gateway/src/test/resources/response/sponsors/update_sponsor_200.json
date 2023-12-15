@@ -1,7 +1,9 @@
 {
+  "id": "554bc2a3-2646-47ae-beed-fdcfec0c3566",
   "userName": "prytula",
   "name": "Serhiy Prytula Charity Foundation",
-  "description": "Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.",
+  "description": "updated description",
+  "media": "ad7375ec-8c33-4d36-860e-bf16ac57d5ab",
   "contacts": [
     {
       "firstName": "Serhiy",
@@ -22,6 +24,5 @@
         }
       ]
     }
-  ],
-  "media": "ad7375ec-8c33-4d36-860e-bf16ac57d5ab"
+  ]
 }

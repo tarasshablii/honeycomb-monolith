@@ -90,8 +90,8 @@
         }
       ]
     },
-    "status": "200",
-    "statusMessage": "HTTP/1.1 200",
+    "status": "201",
+    "statusMessage": "HTTP/1.1 201",
     "headers": {
       "Keep-Alive": "timeout=60",
       "Connection": "keep-alive",

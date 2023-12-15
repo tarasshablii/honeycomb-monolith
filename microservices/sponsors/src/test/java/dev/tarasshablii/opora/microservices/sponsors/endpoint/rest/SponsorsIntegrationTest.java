@@ -44,6 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class SponsorsIntegrationTest extends TestContainers {
 
     private static final String SPONSORS_URL = "/v1/sponsors";
+    private static final String INVALID_ID = "invalid-id";
 
     @Autowired
     private MockMvc mvc;
@@ -104,10 +105,8 @@ class SponsorsIntegrationTest extends TestContainers {
 
     }
 
-
     @Nested
     class CreateSponsorTest {
-
 
         @Value("classpath:request/sponsors/create_sponsor_200.json")
         private Resource validRequestResource;
@@ -222,6 +221,18 @@ class SponsorsIntegrationTest extends TestContainers {
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value(containsString("not found")));
         }
+
+        @Test
+        void getSponsor_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            mvc.perform(get("%s/%s".formatted(SPONSORS_URL, INVALID_ID))
+                            .accept(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("id"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
+        }
     }
 
     @Nested
@@ -305,6 +316,22 @@ class SponsorsIntegrationTest extends TestContainers {
                     .andExpect(jsonPath("$.errors[0].field").value("userName"))
                     .andExpect(jsonPath("$.errors[0].message").value("must not be null"));
         }
+
+        @Test
+        void updateSponsor_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            String requestBody = Files.readString(invalidRequestResource.getFile().toPath());
+
+            mvc.perform(put("%s/%s".formatted(SPONSORS_URL, INVALID_ID))
+                            .content(requestBody)
+                            .contentType(APPLICATION_JSON)
+                            .accept(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("id"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
+        }
     }
 
     @Nested
@@ -330,6 +357,18 @@ class SponsorsIntegrationTest extends TestContainers {
                     .andExpect(status().isNotFound())
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value(containsString("not found")));
+        }
+
+        @Test
+        void deleteSponsor_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            mvc.perform(delete("%s/%s".formatted(SPONSORS_URL, INVALID_ID))
+                            .accept(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("id"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
         }
     }
 

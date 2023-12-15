@@ -59,6 +59,6 @@ public class MediaController implements MediaApi {
         MediaDto mediaDto = MediaDto.builder().id(id).media(body).contentType(request.getHeader(HttpHeaders.CONTENT_TYPE)).build();
         mediaProvider.update(mediaDto);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }

@@ -40,6 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class MediaIntegrationTest extends TestContainers {
 
     private static final String MEDIA_URL = "/v1/media";
+    private static final String INVALID_ID = "invalid-id";
 
     @Autowired
     private MockMvc mvc;
@@ -157,6 +158,18 @@ class MediaIntegrationTest extends TestContainers {
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value(containsString("not found")));
         }
+
+        @Test
+        void getMedia_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            mvc.perform(get("%s/%s".formatted(MEDIA_URL, INVALID_ID))
+                            .accept(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("id"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
+        }
     }
 
     @Nested
@@ -221,6 +234,19 @@ class MediaIntegrationTest extends TestContainers {
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value("UNSUPPORTED_MEDIA_TYPE"));
         }
+
+        @Test
+        void updateMedia_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            mvc.perform(put("%s/%s".formatted(MEDIA_URL, INVALID_ID))
+                            .contentType(IMAGE_JPEG)
+                            .accept(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("id"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
+        }
     }
 
     @Nested
@@ -253,6 +279,18 @@ class MediaIntegrationTest extends TestContainers {
                     .andExpect(status().isNotFound())
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value(containsString("not found")));
+        }
+
+        @Test
+        void deleteMedia_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            mvc.perform(delete("%s/%s".formatted(MEDIA_URL, INVALID_ID))
+                            .accept(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("id"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
         }
     }
 

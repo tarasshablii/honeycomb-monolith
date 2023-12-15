@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.Network;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
@@ -17,12 +16,10 @@ public class TestContainers {
     private static final String STUBS_PATH = "/src/test/resources/stubs/";
 
     static {
-        WIREMOCK = new GenericContainer<>("wiremock/wiremock:2.35.0")
+        WIREMOCK = new GenericContainer<>("wiremock/wiremock:latest")
                 .waitingFor(Wait.forHttp("/__admin/"))
-                .withNetwork(Network.newNetwork())
                 .withExposedPorts(8080)
                 .withFileSystemBind(getStubsPath(), "/home/wiremock", READ_ONLY)
-                .withNetworkAliases("hybris")
                 .withLogConsumer(new Slf4jLogConsumer(log));
         WIREMOCK.start();
     }

@@ -42,14 +42,35 @@ class InitiativesIntegrationTest extends TestContainers {
         @Value("classpath:response/initiatives/get_all_200.json")
         private Resource successResponse;
 
+        private MockHttpServletRequestBuilder get;
+
+        @BeforeEach
+        void setUp() {
+            get = get(INITIATIVES_URL);
+        }
+
         @Test
         void getAllInitiatives_shouldReturnListOfInitiatives() throws Exception {
             String responseBody = Files.readString(successResponse.getFile().toPath());
 
-            mvc.perform(get(INITIATIVES_URL).accept(APPLICATION_JSON))
+            mvc.perform(get.contentType(APPLICATION_JSON)
+                            .accept(APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(content().json(responseBody));
+        }
+
+        @Test
+        void getAllInitiativesForSponsor_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            mvc.perform(get.contentType(APPLICATION_JSON)
+                            .accept(APPLICATION_JSON)
+                            .param("sponsor", INVALID_ID))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("sponsor"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
         }
     }
 

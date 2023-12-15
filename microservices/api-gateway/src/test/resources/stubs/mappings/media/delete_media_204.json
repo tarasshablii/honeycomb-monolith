@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "DELETE",
+    "urlPath": "/v1/media/ae92aed5-c5ec-4b8d-99f2-5894d9629a26",
+    "headers": {
+      "Accept": {
+        "equalTo": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": "204",
+    "statusMessage": "HTTP/1.1 204",
+    "headers": {
+      "Keep-Alive": "timeout=60",
+      "Connection": "keep-alive",
+      "Date": "Thu, 27 Jul 2023 14:17:37 GMT",
+      "Content-Type": "application/json"
+    }
+  }
+}

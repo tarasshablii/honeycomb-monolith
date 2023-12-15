@@ -39,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class InitiativesIntegrationTest extends TestContainers {
 
     private static final String INITIATIVES_URL = "/v1/initiatives";
+    private static final String INVALID_ID = "invalid-id";
 
     @Autowired
     private MockMvc mvc;
@@ -84,6 +85,47 @@ class InitiativesIntegrationTest extends TestContainers {
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(content().json(responseBody));
+        }
+
+        @Test
+        void getAllInitiativesForSponsor_shouldReturnEmptyList_givenNoInitiativesForSponsor() throws Exception {
+            repository.save(defaultInitiativeEntity());
+
+            mvc.perform(get.contentType(APPLICATION_JSON)
+                            .accept(APPLICATION_JSON)
+                            .param("sponsor", "ad7375ec-8c33-4d36-860e-bf16ac57d5ab"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$").isEmpty());
+        }
+
+        @Test
+        void getAllInitiativesForSponsor_shouldReturnListOfInitiativesForSponsor() throws Exception {
+            InitiativeEntity existingInitiative = defaultInitiativeEntity();
+            var sponsorId = existingInitiative.getSponsor().getId();
+            repository.save(existingInitiative);
+
+            String responseBody = Files.readString(responseResource.getFile().toPath());
+
+            mvc.perform(get.contentType(APPLICATION_JSON)
+                            .accept(APPLICATION_JSON)
+                            .param("sponsor", sponsorId.toString()))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(content().json(responseBody));
+        }
+
+        @Test
+        void getAllInitiativesForSponsor_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            mvc.perform(get.contentType(APPLICATION_JSON)
+                            .accept(APPLICATION_JSON)
+                            .param("sponsor", INVALID_ID))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("sponsor"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
         }
     }
 
@@ -205,6 +247,18 @@ class InitiativesIntegrationTest extends TestContainers {
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value(containsString("not found")));
         }
+
+        @Test
+        void getInitiative_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            mvc.perform(get("%s/%s".formatted(INITIATIVES_URL, INVALID_ID))
+                            .accept(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("id"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
+        }
     }
 
     @Nested
@@ -287,6 +341,22 @@ class InitiativesIntegrationTest extends TestContainers {
                     .andExpect(jsonPath("$.errors[0].field").value("title"))
                     .andExpect(jsonPath("$.errors[0].message").value("must not be null"));
         }
+
+        @Test
+        void updateInitiative_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            String requestBody = Files.readString(invalidRequestResource.getFile().toPath());
+
+            mvc.perform(put("%s/%s".formatted(INITIATIVES_URL, INVALID_ID))
+                            .content(requestBody)
+                            .contentType(APPLICATION_JSON)
+                            .accept(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("id"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
+        }
     }
 
     @Nested
@@ -315,6 +385,18 @@ class InitiativesIntegrationTest extends TestContainers {
                     .andExpect(status().isNotFound())
                     .andExpect(content().contentType(APPLICATION_JSON))
                     .andExpect(jsonPath("$.message").value(containsString("not found")));
+        }
+
+        @Test
+        void deleteInitiative_shouldReturnBadRequest_givenInvalidUUIDFormat() throws Exception {
+            mvc.perform(delete("%s/%s".formatted(INITIATIVES_URL, INVALID_ID))
+                            .accept(APPLICATION_JSON))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().contentType(APPLICATION_JSON))
+                    .andExpect(jsonPath("$.message").value("Type mismatch occurred, see errors for details"))
+                    .andExpect(jsonPath("$.errors").isNotEmpty())
+                    .andExpect(jsonPath("$.errors[0].field").value("id"))
+                    .andExpect(jsonPath("$.errors[0].message").value(containsString("Invalid UUID string: invalid-id")));
         }
     }
 
