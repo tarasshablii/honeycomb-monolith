@@ -2,13 +2,13 @@ version: '3.9'
 
 services:
 
-  opora-monolith:
+  monolith:
     profiles:
       - monolith
     build:
       context: .
       dockerfile: monolith.Dockerfile
-    container_name: opora-monolith
+    container_name: monolith
     ports:
       - "8080:8080"
     environment:
@@ -37,38 +37,38 @@ services:
     networks:
       - opora-network
 
-  opora-apigateway-service:
+  apigateway-service:
     profiles:
       - microservices
     build:
       context: .
       dockerfile: apigateway-service.Dockerfile
-    container_name: opora_apigateway_service
+    container_name: apigateway-service
     ports:
       - "8090:8080"
     environment:
       LOG_LEVEL: DEBUG
       SERVER_PORT: 8080
-      INITIATIVES_SERVICE_HOST: opora-initiatives-service
+      INITIATIVES_SERVICE_HOST: initiatives-service
       INITIATIVES_SERVICE_PORT: 8080
-      MEDIA_SERVICE_HOST: opora-media-service
+      MEDIA_SERVICE_HOST: media-service
       MEDIA_SERVICE_PORT: 8080
-      SPONSORS_SERVICE_HOST: opora-sponsors-service
+      SPONSORS_SERVICE_HOST: sponsors-service
       SPONSORS_SERVICE_PORT: 8080
     depends_on:
-      - opora-initiatives-service
-      - opora-media-service
-      - opora-sponsors-service
+      - initiatives-service
+      - media-service
+      - sponsors-service
     networks:
       - opora-network
 
-  opora-initiatives-service:
+  initiatives-service:
     profiles:
       - microservices
     build:
       context: .
       dockerfile: initiatives-service.Dockerfile
-    container_name: opora-initiatives-service
+    container_name: initiatives-service
     ports:
       - "8091:8080"
     environment:
@@ -83,13 +83,13 @@ services:
     networks:
       - opora-network
 
-  opora-media-service:
+  media-service:
     profiles:
       - microservices
     build:
       context: .
       dockerfile: media-service.Dockerfile
-    container_name: opora-media-service
+    container_name: media-service
     ports:
       - "8092:8080"
     environment:
@@ -109,13 +109,13 @@ services:
     networks:
       - opora-network
 
-  opora-sponsors-service:
+  sponsors-service:
     profiles:
       - microservices
     build:
       context: .
       dockerfile: sponsors-service.Dockerfile
-    container_name: opora-sponsors-service
+    container_name: sponsors-service
     ports:
       - "8093:8080"
     environment:
