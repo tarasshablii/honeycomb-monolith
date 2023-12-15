@@ -1,0 +1,102 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/v1/initiatives",
+    "headers": {
+      "Accept": {
+        "equalTo": "application/json"
+      },
+      "Content-Type": {
+        "equalTo": "application/json"
+      }
+    }
+  },
+  "response": {
+    "jsonBody": {
+      "id": "376e4c35-bdec-402c-81ce-40007876209a",
+      "title": "Kherson aid",
+      "description": "Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse",
+      "media": "913829c5-6de1-4e44-9ffe-3e7ae84b0d19",
+      "status": "ACTIVE",
+      "isUrgent": true,
+      "progress": 78,
+      "sponsor": {
+        "id": "ae92aed5-c5ec-4b8d-99f2-5894d9629a26",
+        "userName": "prytula",
+        "name": "Serhiy Prytula Charity Foundation"
+      },
+      "contacts": [
+        {
+          "firstName": "Serhiy",
+          "lastName": "Prytula",
+          "phones": [
+            {
+              "number": "0800 300 114",
+              "types": [
+                "signal"
+              ]
+            }
+          ],
+          "email": "serhiy.prutyla@gmail.com",
+          "links": [
+            {
+              "url": "https://www.facebook.com/prytulafoundation.org",
+              "platform": "facebook"
+            }
+          ]
+        }
+      ],
+      "directions": [
+        {
+          "directionsType": "Address",
+          "street": "vul. Hrushevskoho 1",
+          "town": "Kyiv",
+          "directions": "Accepting deliveries at back door. Please, do not block the driveway."
+        },
+        {
+          "directionsType": "NovaPoshta",
+          "town": "Kyiv",
+          "office": 345,
+          "recipient": {
+            "firstName": "Serhiy",
+            "lastName": "Prytula",
+            "phones": [
+              {
+                "number": "0800 300 114",
+                "types": [
+                  "signal"
+                ]
+              }
+            ],
+            "email": "serhiy.prutyla@gmail.com",
+            "links": [
+              {
+                "url": "https://www.facebook.com/prytulafoundation.org",
+                "platform": "facebook"
+              }
+            ]
+          },
+          "directions": "Please, do not pay for delivery, NovaPoshta will cover it."
+        }
+      ],
+      "items": [
+        {
+          "title": "blankets",
+          "description": "Blankets of any size and type, the warmer the better",
+          "media": "d4d5b327-07b2-4f04-9275-e4fa00af87fe",
+          "unit": "count",
+          "target": 50,
+          "current": 39
+        }
+      ]
+    },
+    "status": "201",
+    "statusMessage": "HTTP/1.1 201",
+    "headers": {
+      "Keep-Alive": "timeout=60",
+      "Connection": "keep-alive",
+      "Date": "Thu, 27 Jul 2023 14:17:37 GMT",
+      "Content-Type": "application/json"
+    }
+  }
+}

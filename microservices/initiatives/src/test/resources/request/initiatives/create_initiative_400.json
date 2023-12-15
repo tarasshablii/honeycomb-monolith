@@ -1,0 +1,77 @@
+{
+  "description": "description",
+  "media": "7632105a-3dfc-4e16-87fe-d743ba5ae922",
+  "status": "ACTIVE",
+  "isUrgent": true,
+  "sponsor": {
+    "id": "ea49788f-bac6-4ba5-bf67-e6b233416a39",
+    "userName": "userName",
+    "name": "name"
+  },
+  "contacts": [
+    {
+      "firstName": "firstName",
+      "lastName": "lastName",
+      "phones": [
+        {
+          "number": "number",
+          "types": [
+            "signal",
+            "whatsapp"
+          ]
+        }
+      ],
+      "email": "email@snail.con",
+      "links": [
+        {
+          "url": "url",
+          "platform": "facebook"
+        }
+      ]
+    }
+  ],
+  "directions": [
+    {
+      "directionsType": "Address",
+      "street": "street",
+      "town": "town",
+      "directions": "directions"
+    },
+    {
+      "directionsType": "NovaPoshta",
+      "town": "town",
+      "office": 13,
+      "recipient": {
+        "firstName": "firstName",
+        "lastName": "lastName",
+        "phones": [
+          {
+            "number": "number",
+            "types": [
+              "signal",
+              "whatsapp"
+            ]
+          }
+        ],
+        "email": "email@snail.con",
+        "links": [
+          {
+            "url": "url",
+            "platform": "facebook"
+          }
+        ]
+      },
+      "directions": "directions"
+    }
+  ],
+  "items": [
+    {
+      "title": "title",
+      "description": "description",
+      "media": "7632105a-3dfc-4e16-87fe-d743ba5ae922",
+      "unit": "count",
+      "target": 100,
+      "current": 50
+    }
+  ]
+}

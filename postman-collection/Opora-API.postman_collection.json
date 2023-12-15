@@ -1,0 +1,3577 @@
+{
+	"info": {
+		"_postman_id": "86367558-6c2e-42e1-a5f7-44bfa540a89d",
+		"name": "Opora API",
+		"description": "API for connecting donors with humanitarian initiatives",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23956656"
+	},
+	"item": [
+		{
+			"name": "Sponsors",
+			"item": [
+				{
+					"name": "Get a list of all sponsors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/sponsors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"sponsors"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "A list of sponsors",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\",\n    \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n    \"contacts\": [\n      {\n        \"firstName\": \"Serhiy\",\n        \"lastName\": \"Prytula\",\n        \"phones\": [\n          {\n            \"number\": \"0800 300 114\",\n            \"types\": [\n              \"whatsapp\"\n            ]\n          }\n        ],\n        \"email\": \"serhiy.prutyla@gmail.com\",\n        \"links\": [\n          {\n            \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n            \"platform\": \"facebook\"\n          }\n        ]\n      }\n    ],\n    \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n  },\n  {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\",\n    \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n    \"contacts\": [\n      {\n        \"firstName\": \"Serhiy\",\n        \"lastName\": \"Prytula\",\n        \"phones\": [\n          {\n            \"number\": \"0800 300 114\",\n            \"types\": [\n              \"signal\"\n            ]\n          }\n        ],\n        \"email\": \"serhiy.prutyla@gmail.com\",\n        \"links\": [\n          {\n            \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n            \"platform\": \"facebook\"\n          }\n        ]\n      }\n    ],\n    \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n  }\n]"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Register a new sponsor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);",
+									"var id = jsonResponse.id;",
+									"pm.collectionVariables.set(\"sponsorId\", id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://localhost:9000/realms/opora/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/sponsors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"sponsors"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sponsor successfully created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"viber\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}"
+						},
+						{
+							"name": "The request could not be understood or was missing required parameters.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Authentication credentials were missing or incorrect.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get a sponsor by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/sponsors/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"sponsors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{sponsorId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sponsor details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"viber\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}"
+						},
+						{
+							"name": "The requested resource was not found.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update a sponsor by ID",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://localhost:9000/realms/opora/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/sponsors/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"sponsors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{sponsorId}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sponsor successfully updated",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"viber\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}"
+						},
+						{
+							"name": "The request could not be understood or was missing required parameters.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Authentication credentials were missing or incorrect.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The requested resource was not found.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"prytula\",\n  \"name\": \"Serhiy Prytula Charity Foundation\",\n  \"description\": \"Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.\",\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"media\": \"ad7375ec-8c33-4d36-860e-bf16ac57d5ab\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete a sponsor by ID",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://localhost:9000/realms/opora/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/sponsors/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"sponsors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{sponsorId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sponsor successfully deleted",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Authentication credentials were missing or incorrect.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The requested resource was not found.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/sponsors/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"sponsors",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			],
+			"description": "API related to registered users who can create and modify initiatives"
+		},
+		{
+			"name": "Initiatives",
+			"item": [
+				{
+					"name": "Get a list of all initiatives",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/initiatives?sponsor=ae92aed5-c5ec-4b8d-99f2-5894d9629a26",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"initiatives"
+							],
+							"query": [
+								{
+									"key": "sponsor",
+									"value": "ae92aed5-c5ec-4b8d-99f2-5894d9629a26",
+									"description": "Optional sponsor ID to filter the initiatives"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "A list of initiatives",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives?sponsor=d0b978d9-d303-4362-e2f7-82976376d18d",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives"
+									],
+									"query": [
+										{
+											"key": "sponsor",
+											"value": "d0b978d9-d303-4362-e2f7-82976376d18d",
+											"description": "Optional sponsor ID to filter the initiatives"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"e22d5ccc-e85e-4cb1-8d8a-9eda1cd412a5\",\n    \"title\": \"Kherson aid\",\n    \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n    \"status\": \"ACTIVE\",\n    \"sponsor\": {\n      \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n      \"userName\": \"prytula\",\n      \"name\": \"Serhiy Prytula Charity Foundation\"\n    },\n    \"contacts\": [\n      {\n        \"firstName\": \"Serhiy\",\n        \"lastName\": \"Prytula\",\n        \"phones\": [\n          {\n            \"number\": \"0800 300 114\",\n            \"types\": [\n              \"telegram\"\n            ]\n          }\n        ],\n        \"email\": \"serhiy.prutyla@gmail.com\",\n        \"links\": [\n          {\n            \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n            \"platform\": \"facebook\"\n          }\n        ]\n      }\n    ],\n    \"directions\": [\n      {\n        \"directionsType\": \"Address\",\n        \"street\": \"vul. Hrushevskoho 1\",\n        \"town\": \"Kyiv\",\n        \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n      }\n    ],\n    \"items\": [\n      {\n        \"title\": \"blankets\",\n        \"target\": 50,\n        \"description\": \"Blankets of any size and type, the warmer the better\",\n        \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n        \"unit\": \"count\",\n        \"current\": 39\n      }\n    ],\n    \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n    \"isUrgent\": true,\n    \"progress\": 78\n  },\n  {\n    \"id\": \"e22d5ccc-e85e-4cb1-8d8a-9eda1cd412a5\",\n    \"title\": \"Kherson aid\",\n    \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n    \"status\": \"ACTIVE\",\n    \"sponsor\": {\n      \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n      \"userName\": \"prytula\",\n      \"name\": \"Serhiy Prytula Charity Foundation\"\n    },\n    \"contacts\": [\n      {\n        \"firstName\": \"Serhiy\",\n        \"lastName\": \"Prytula\",\n        \"phones\": [\n          {\n            \"number\": \"0800 300 114\",\n            \"types\": [\n              \"telegram\"\n            ]\n          }\n        ],\n        \"email\": \"serhiy.prutyla@gmail.com\",\n        \"links\": [\n          {\n            \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n            \"platform\": \"facebook\"\n          }\n        ]\n      }\n    ],\n    \"directions\": [\n      {\n        \"directionsType\": \"Address\",\n        \"street\": \"vul. Hrushevskoho 1\",\n        \"town\": \"Kyiv\",\n        \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n      }\n    ],\n    \"items\": [\n      {\n        \"title\": \"blankets\",\n        \"target\": 50,\n        \"description\": \"Blankets of any size and type, the warmer the better\",\n        \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n        \"unit\": \"count\",\n        \"current\": 39\n      }\n    ],\n    \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n    \"isUrgent\": true,\n    \"progress\": 78\n  }\n]"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives?sponsor=d0b978d9-d303-4362-e2f7-82976376d18d",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives"
+									],
+									"query": [
+										{
+											"key": "sponsor",
+											"value": "d0b978d9-d303-4362-e2f7-82976376d18d",
+											"description": "Optional sponsor ID to filter the initiatives"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Register a new initiative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);",
+									"var id = jsonResponse.id;",
+									"pm.collectionVariables.set(\"initiativeId\", id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://localhost:9000/realms/opora/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Kherson aid\",\n    \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n    \"status\": \"ACTIVE\",\n    \"sponsor\": {\n        \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n        \"userName\": \"prytula\",\n        \"name\": \"Serhiy Prytula Charity Foundation\"\n    },\n    \"contacts\": [\n        {\n            \"firstName\": \"Serhiy\",\n            \"lastName\": \"Prytula\",\n            \"phones\": [\n                {\n                    \"number\": \"0800 300 114\",\n                    \"types\": [\n                        \"signal\"\n                    ]\n                }\n            ],\n            \"email\": \"serhiy.prutyla@gmail.com\",\n            \"links\": [\n                {\n                    \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n                    \"platform\": \"facebook\"\n                }\n            ]\n        }\n    ],\n    \"directions\": [\n        {\n            \"directionsType\": \"Address\",\n            \"street\": \"vul. Hrushevskoho 1\",\n            \"town\": \"Kyiv\",\n            \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n        },\n        {\n            \"directionsType\": \"NovaPoshta\",\n            \"town\": \"Kyiv\",\n            \"office\": 345,\n            \"recipient\": {\n                \"firstName\": \"Serhiy\",\n                \"lastName\": \"Prytula\",\n                \"phones\": [\n                    {\n                        \"number\": \"0800 300 114\",\n                        \"types\": [\n                            \"signal\"\n                        ]\n                    }\n                ],\n                \"email\": \"serhiy.prutyla@gmail.com\",\n                \"links\": [\n                    {\n                        \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n                        \"platform\": \"facebook\"\n                    }\n                ]\n            },\n            \"directions\": \"Please, do not pay for delivery, NovaPoshta will cover it.\"\n        }\n    ],\n    \"items\": [\n        {\n            \"title\": \"blankets\",\n            \"target\": 50,\n            \"description\": \"Blankets of any size and type, the warmer the better\",\n            \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n            \"unit\": \"count\",\n            \"current\": 39\n        }\n    ],\n    \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n    \"isUrgent\": true\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/initiatives",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"initiatives"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Initiative successfully created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"e22d5ccc-e85e-4cb1-8d8a-9eda1cd412a5\",\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"viber\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true,\n  \"progress\": 78\n}"
+						},
+						{
+							"name": "The request could not be understood or was missing required parameters.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Authentication credentials were missing or incorrect.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get an initiative by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/initiatives/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"initiatives",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{initiativeId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Initiative details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"e22d5ccc-e85e-4cb1-8d8a-9eda1cd412a5\",\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"viber\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true,\n  \"progress\": 78\n}"
+						},
+						{
+							"name": "The requested resource was not found.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update an initiative by ID",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://localhost:9000/realms/opora/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Kherson aid\",\n    \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n    \"status\": \"ACTIVE\",\n    \"sponsor\": {\n        \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n        \"userName\": \"prytula\",\n        \"name\": \"Serhiy Prytula Charity Foundation\"\n    },\n    \"contacts\": [\n        {\n            \"firstName\": \"Serhiy\",\n            \"lastName\": \"Prytula\",\n            \"phones\": [\n                {\n                    \"number\": \"0800 300 114\",\n                    \"types\": [\n                        \"signal\"\n                    ]\n                }\n            ],\n            \"email\": \"serhiy.prutyla@gmail.com\",\n            \"links\": [\n                {\n                    \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n                    \"platform\": \"facebook\"\n                }\n            ]\n        }\n    ],\n    \"directions\": [\n        {\n            \"directionsType\": \"Address\",\n            \"street\": \"vul. Hrushevskoho 1\",\n            \"town\": \"Kyiv\",\n            \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n        },\n        {\n            \"directionsType\": \"NovaPoshta\",\n            \"town\": \"Kyiv\",\n            \"office\": 345,\n            \"recipient\": {\n                \"firstName\": \"Serhiy\",\n                \"lastName\": \"Prytula\",\n                \"phones\": [\n                    {\n                        \"number\": \"0800 300 114\",\n                        \"types\": [\n                            \"signal\"\n                        ]\n                    }\n                ],\n                \"email\": \"serhiy.prutyla@gmail.com\",\n                \"links\": [\n                    {\n                        \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n                        \"platform\": \"facebook\"\n                    }\n                ]\n            },\n            \"directions\": \"Please, do not pay for delivery, NovaPoshta will cover it.\"\n        }\n    ],\n    \"items\": [\n        {\n            \"title\": \"blankets\",\n            \"target\": 50,\n            \"description\": \"Blankets of any size and type, the warmer the better\",\n            \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n            \"unit\": \"count\",\n            \"current\": 39\n        }\n    ],\n    \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n    \"isUrgent\": true\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/initiatives/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"initiatives",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{initiativeId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Initiative successfully updated",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"e22d5ccc-e85e-4cb1-8d8a-9eda1cd412a5\",\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"viber\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true,\n  \"progress\": 78\n}"
+						},
+						{
+							"name": "The request could not be understood or was missing required parameters.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Authentication credentials were missing or incorrect.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The requested resource was not found.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Kherson aid\",\n  \"description\": \"Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse\",\n  \"status\": \"ACTIVE\",\n  \"sponsor\": {\n    \"id\": \"ae92aed5-c5ec-4b8d-99f2-5894d9629a26\",\n    \"userName\": \"prytula\",\n    \"name\": \"Serhiy Prytula Charity Foundation\"\n  },\n  \"contacts\": [\n    {\n      \"firstName\": \"Serhiy\",\n      \"lastName\": \"Prytula\",\n      \"phones\": [\n        {\n          \"number\": \"0800 300 114\",\n          \"types\": [\n            \"signal\"\n          ]\n        }\n      ],\n      \"email\": \"serhiy.prutyla@gmail.com\",\n      \"links\": [\n        {\n          \"url\": \"https://www.facebook.com/prytulafoundation.org\",\n          \"platform\": \"facebook\"\n        }\n      ]\n    }\n  ],\n  \"directions\": [\n    {\n      \"directionsType\": \"Address\",\n      \"street\": \"vul. Hrushevskoho 1\",\n      \"town\": \"Kyiv\",\n      \"directions\": \"Accepting deliveries at back door. Please, do not block the driveway.\"\n    }\n  ],\n  \"items\": [\n    {\n      \"title\": \"blankets\",\n      \"target\": 50,\n      \"description\": \"Blankets of any size and type, the warmer the better\",\n      \"media\": \"d4d5b327-07b2-4f04-9275-e4fa00af87fe\",\n      \"unit\": \"count\",\n      \"current\": 39\n    }\n  ],\n  \"media\": \"913829c5-6de1-4e44-9ffe-3e7ae84b0d19\",\n  \"isUrgent\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete an initiative by ID",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://localhost:9000/realms/opora/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/initiatives/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"initiatives",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{initiativeId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Initiative successfully deleted",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Authentication credentials were missing or incorrect.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The requested resource was not found.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/initiatives/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"initiatives",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			],
+			"description": "API related to humanitarian initiatives organized by sponsors"
+		},
+		{
+			"name": "Media",
+			"item": [
+				{
+					"name": "Upload a new image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);",
+									"var id = jsonResponse.id;",
+									"pm.collectionVariables.set(\"mediaId\", id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://localhost:9000/realms/opora/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "image/jpeg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/media",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"media"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Image successfully uploaded",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "image/png"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/media",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"8751674d-ea92-4a01-95d1-d50e603c6920\",\n  \"url\": \"http://localhost:8080/v1/media/8751674d-ea92-4a01-95d1-d50e603c6920\"\n}"
+						},
+						{
+							"name": "The request could not be understood or was missing required parameters.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "image/png"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/media",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Authentication credentials were missing or incorrect.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "image/png"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/media",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "image/png"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/media",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get an image by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "image/jpeg, image/png"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/media/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"media",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{mediaId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Image details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "image/png"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "image/png"
+								}
+							],
+							"cookie": [],
+							"body": "culpa fugiat"
+						},
+						{
+							"name": "The requested resource was not found.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update an image by ID",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://localhost:9000/realms/opora/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "image/png"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/media/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"media",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{mediaId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Image successfully updated",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "image/png"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "The request could not be understood or was missing required parameters.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "image/png"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Authentication credentials were missing or incorrect.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "image/png"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "image/png"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The requested resource was not found.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "image/png"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "image/png"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete an image by ID",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://localhost:9000/realms/opora/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "password_credentials",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/media/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"media",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{mediaId}}",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Image successfully deleted",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Authentication credentials were missing or incorrect.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The requested resource was not found.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The server encountered an internal error or misconfiguration and was unable to complete your request.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: oauth2",
+										"key": "Authorization",
+										"value": "<token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/media/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"timestamp\": \"2023-11-21T14:48:41.877976Z\",\n  \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\",\n  \"details\": \"Duis ea ipsum amet\",\n  \"errors\": [\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    },\n    {\n      \"field\": \"uuid\",\n      \"message\": \"JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \\\\\\\"<uuid>\\\\\\\": UUID has to be represented by standard 36-char representation\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			],
+			"description": "API for accessing media files"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "monolith"
+		},
+		{
+			"key": "baseUrl",
+			"value": "microservices",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "sponsorId",
+			"value": "1bbacb45-e91a-44d2-bd6c-36261520e169",
+			"type": "string"
+		},
+		{
+			"key": "initiativeId",
+			"value": "010e26a6-90d7-472f-bdf6-42777df28f5a",
+			"type": "string"
+		},
+		{
+			"key": "mediaId",
+			"value": "eefa21d2-5cd4-4a87-a8cb-32b76d5a1648",
+			"type": "string"
+		}
+	]
+}

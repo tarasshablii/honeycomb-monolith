@@ -1,0 +1,205 @@
+version: '3.9'
+
+services:
+
+  monolith:
+    profiles:
+      - monolith
+    build:
+      context: .
+      dockerfile: monolith.Dockerfile
+    container_name: monolith
+    ports:
+      - "8080:8080"
+    environment:
+      LOG_LEVEL: DEBUG
+      SPONSORS_DATABASE_HOST: postgres-sponsors
+      SPONSORS_DATABASE_PORT: 5432
+      SPONSORS_DATABASE_USERNAME: sponsors_user
+      SPONSORS_DATABASE_PASSWORD: sponsors_pass
+      SPRING_DATA_MONGODB_HOST: mongodb
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_USERNAME: initiatives_user
+      SPRING_DATA_MONGODB_PASSWORD: initiatives_pass
+      MEDIA_DATABASE_HOST: minio
+      MEDIA_DATABASE_PORT: 9000
+      MEDIA_DATABASE_USERNAME: media_user
+      MEDIA_DATABASE_PASSWORD: media_pass
+      MEDIA_METADATA_DATABASE_HOST: postgres-media
+      MEDIA_METADATA_DATABASE_PORT: 5432
+      MEDIA_METADATA_DATASOURCE_USERNAME: media_user
+      MEDIA_METADATA_DATASOURCE_PASSWORD: media_pass
+    depends_on:
+      - postgres-sponsors
+      - mongodb
+      - minio
+      - postgres-media
+    networks:
+      - opora-network
+
+  apigateway-service:
+    profiles:
+      - microservices
+    build:
+      context: .
+      dockerfile: apigateway-service.Dockerfile
+    container_name: apigateway-service
+    ports:
+      - "8090:8080"
+    environment:
+      LOG_LEVEL: DEBUG
+      SERVER_PORT: 8080
+      INITIATIVES_SERVICE_HOST: initiatives-service
+      INITIATIVES_SERVICE_PORT: 8080
+      MEDIA_SERVICE_HOST: media-service
+      MEDIA_SERVICE_PORT: 8080
+      SPONSORS_SERVICE_HOST: sponsors-service
+      SPONSORS_SERVICE_PORT: 8080
+    depends_on:
+      - initiatives-service
+      - media-service
+      - sponsors-service
+    networks:
+      - opora-network
+
+  initiatives-service:
+    profiles:
+      - microservices
+    build:
+      context: .
+      dockerfile: initiatives-service.Dockerfile
+    container_name: initiatives-service
+    ports:
+      - "8091:8080"
+    environment:
+      LOG_LEVEL: DEBUG
+      SERVER_PORT: 8080
+      SPRING_DATA_MONGODB_HOST: mongodb
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_USERNAME: initiatives_user
+      SPRING_DATA_MONGODB_PASSWORD: initiatives_pass
+    depends_on:
+      - mongodb
+    networks:
+      - opora-network
+
+  media-service:
+    profiles:
+      - microservices
+    build:
+      context: .
+      dockerfile: media-service.Dockerfile
+    container_name: media-service
+    ports:
+      - "8092:8080"
+    environment:
+      LOG_LEVEL: DEBUG
+      SERVER_PORT: 8080
+      MEDIA_DATABASE_HOST: minio
+      MEDIA_DATABASE_PORT: 9000
+      MEDIA_DATABASE_USERNAME: media_user
+      MEDIA_DATABASE_PASSWORD: media_pass
+      MEDIA_METADATA_DATABASE_HOST: postgres-media
+      MEDIA_METADATA_DATABASE_PORT: 5432
+      SPRING_DATASOURCE_USERNAME: media_user
+      SPRING_DATASOURCE_PASSWORD: media_pass
+    depends_on:
+      - minio
+      - postgres-media
+    networks:
+      - opora-network
+
+  sponsors-service:
+    profiles:
+      - microservices
+    build:
+      context: .
+      dockerfile: sponsors-service.Dockerfile
+    container_name: sponsors-service
+    ports:
+      - "8093:8080"
+    environment:
+      LOG_LEVEL: DEBUG
+      SERVER_PORT: 8080
+      SPONSORS_DATABASE_HOST: postgres-sponsors
+      SPONSORS_DATABASE_PORT: 5432
+      SPRING_DATASOURCE_USERNAME: sponsors_user
+      SPRING_DATASOURCE_PASSWORD: sponsors_pass
+    depends_on:
+      - postgres-sponsors
+    networks:
+      - opora-network
+
+  postgres-sponsors:
+    image: postgres
+    container_name: postgres-sponsors
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: sponsors_pass
+      POSTGRES_USER: sponsors_user
+      POSTGRES_DB: sponsors
+    volumes:
+      - sponsors-db:/var/lib/postgresql/data
+    networks:
+      - opora-network
+
+  postgres-media:
+    image: postgres
+    container_name: postgres-media
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: media_pass
+      POSTGRES_USER: media_user
+      POSTGRES_DB: media_metadata
+    volumes:
+      - media-metadata-db:/var/lib/postgresql/data
+    networks:
+      - opora-network
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: initiatives_user
+      MONGO_INITDB_ROOT_PASSWORD: initiatives_pass
+      MONGO_INITDB_DATABASE: initiatives
+    volumes:
+      - initiatives-db:/data/db
+    networks:
+      - opora-network
+
+  minio:
+    image: quay.io/minio/minio
+    container_name: minio
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: media_user
+      MINIO_ROOT_PASSWORD: media_pass
+      MINIO_ADDRESS: ':9000'
+      MINIO_CONSOLE_ADDRESS: ':9001'
+      MINIO_DEFAULT_BUCKETS: media
+    command: server /data
+    volumes:
+      - media-db:/data
+    networks:
+      - opora-network
+
+networks:
+  opora-network:
+    driver: bridge
+
+volumes:
+  sponsors-db:
+  initiatives-db:
+  media-db:
+  media-metadata-db:

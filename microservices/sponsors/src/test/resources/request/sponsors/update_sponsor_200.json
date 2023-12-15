@@ -1,0 +1,28 @@
+{
+  "userName": "userName",
+  "name": "name",
+  "description": "updated description",
+  "media": "28f9ff91-773a-49c6-bdbb-0536571d6d99",
+  "contacts": [
+    {
+      "firstName": "firstName",
+      "lastName": "lastName",
+      "phones": [
+        {
+          "number": "number",
+          "types": [
+            "signal",
+            "whatsapp"
+          ]
+        }
+      ],
+      "email": "email@snail.con",
+      "links": [
+        {
+          "url": "url",
+          "platform": "facebook"
+        }
+      ]
+    }
+  ]
+}

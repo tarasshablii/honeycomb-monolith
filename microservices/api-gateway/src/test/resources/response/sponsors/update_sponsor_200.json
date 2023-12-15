@@ -1,0 +1,28 @@
+{
+  "id": "554bc2a3-2646-47ae-beed-fdcfec0c3566",
+  "userName": "prytula",
+  "name": "Serhiy Prytula Charity Foundation",
+  "description": "updated description",
+  "media": "ad7375ec-8c33-4d36-860e-bf16ac57d5ab",
+  "contacts": [
+    {
+      "firstName": "Serhiy",
+      "lastName": "Prytula",
+      "phones": [
+        {
+          "number": "0800 300 114",
+          "types": [
+            "signal"
+          ]
+        }
+      ],
+      "email": "serhiy.prutyla@gmail.com",
+      "links": [
+        {
+          "url": "https://www.facebook.com/prytulafoundation.org",
+          "platform": "facebook"
+        }
+      ]
+    }
+  ]
+}

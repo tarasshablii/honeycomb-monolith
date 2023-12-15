@@ -1,0 +1,92 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+plugins {
+    id "org.springframework.boot" version "$springBootVersion"
+    id "io.spring.dependency-management" version "$springDependencyManagementVersion"
+    id "org.openapi.generator" version "$openApiGeneratorVersion"
+}
+
+sourceSets.main.java.srcDirs += "$projectDir/build/generated/src/main/java"
+
+dependencies {
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation "org.apache.commons:commons-collections4:$commonsCollectionsVersion"
+
+    implementation "org.openapitools:jackson-databind-nullable:$openapiJacksonDatabindNullableVersion"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocWebmvcUiVersion"
+
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    implementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
+    testImplementation 'org.testcontainers:mongodb'
+
+    // Overriding to avoid vulnerability
+    implementation "org.yaml:snakeyaml:$snakeYamlVersion"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:$springDependenciesVersion"
+    }
+}
+
+springBoot {
+    mainClass = "dev.tarasshablii.opora.microservices.initiatives.Application"
+}
+
+jar {
+    // Spring Boot 2.5.0+ creates two JAR files: {ARCHIVE_BASE_NAME}.jar and {ARCHIVE_BASE_NAME}-plain.jar.
+    // This forces gradle to just create one `{ARCHIVE_BASE_NAME}.jar`
+    enabled = false
+    archivesBaseName = "$rootProject.name-initiatives-service"
+    project.version = ""
+}
+
+task openApiGenerateServer(type: GenerateTask) {
+    generatorName = "spring"
+    library = "spring-boot"
+    inputSpec = "$projectDir/../../openapi/opora-initiatives-api.yml"
+    outputDir = "$projectDir/build/generated"
+    modelNameSuffix = "Dto"
+    apiPackage = "dev.tarasshablii.opora.microservices.initiatives.endpoint.rest.api"
+    modelPackage = "dev.tarasshablii.opora.microservices.initiatives.endpoint.rest.dto"
+    configOptions = [
+            generatedConstructorWithRequiredArgs: "false",
+            interfaceOnly                       : "true",
+            useSpringController                 : "true",
+            useTags                             : "true",
+            dateLibrary                         : "java8",
+            skipDefaultInterface                : "true",
+            useSpringBoot3                      : "true",
+            useJakartaEe                        : "true",
+            additionalModelTypeAnnotations      :
+                    """
+                        @lombok.Builder
+                        @lombok.extern.jackson.Jacksonized
+                        @com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
+                    """
+
+    ]
+    typeMappings = [
+            OffsetDateTime: "Instant"
+    ]
+    importMappings = [
+            "java.time.OffsetDateTime": "java.time.Instant"
+    ]
+
+    doLast {
+        delete fileTree("$projectDir/build/generated/src/main/java/") {
+            include '**/rest/api/ApiUtil.java'
+        }
+    }
+
+    tasks.compileJava.dependsOn it
+}
+
+test {
+
+}

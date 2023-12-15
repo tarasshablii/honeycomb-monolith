@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "DELETE",
+    "urlPath": "/v1/sponsors/554bc2a3-2646-47ae-beed-fdcfec0c3566",
+    "headers": {
+      "Accept": {
+        "equalTo": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": "204",
+    "statusMessage": "HTTP/1.1 200",
+    "headers": {
+      "Keep-Alive": "timeout=60",
+      "Connection": "keep-alive",
+      "Date": "Thu, 27 Jul 2023 14:17:37 GMT",
+      "Content-Type": "application/json"
+    }
+  }
+}
