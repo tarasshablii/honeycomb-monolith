@@ -2,7 +2,6 @@ package dev.tarasshablii.opora.microservices.initiatives;
 
 import dev.tarasshablii.opora.microservices.initiatives.domain.model.Contact;
 import dev.tarasshablii.opora.microservices.initiatives.domain.model.InitiativeItem;
-import dev.tarasshablii.opora.microservices.initiatives.domain.model.InitiativeSponsor;
 import dev.tarasshablii.opora.microservices.initiatives.domain.model.InitiativeStatus;
 import dev.tarasshablii.opora.microservices.initiatives.domain.model.ItemUnit;
 import dev.tarasshablii.opora.microservices.initiatives.domain.model.Link;
@@ -12,6 +11,7 @@ import dev.tarasshablii.opora.microservices.initiatives.domain.model.PlatformTyp
 import dev.tarasshablii.opora.microservices.initiatives.provider.persistence.entity.AddressEntity;
 import dev.tarasshablii.opora.microservices.initiatives.provider.persistence.entity.DirectionsEntity;
 import dev.tarasshablii.opora.microservices.initiatives.provider.persistence.entity.InitiativeEntity;
+import dev.tarasshablii.opora.microservices.initiatives.provider.persistence.entity.InitiativeSponsorEntity;
 import dev.tarasshablii.opora.microservices.initiatives.provider.persistence.entity.NovaPoshtaEntity;
 
 import java.util.List;
@@ -97,8 +97,8 @@ public class InitiativesTestUtil {
                 .build();
     }
 
-    private static InitiativeSponsor defaultSponsorEntity() {
-        return InitiativeSponsor.builder()
+    private static InitiativeSponsorEntity defaultSponsorEntity() {
+        return InitiativeSponsorEntity.builder()
                 .id(SPONSOR_ID)
                 .userName("userName")
                 .name("name")

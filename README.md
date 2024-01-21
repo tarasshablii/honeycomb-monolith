@@ -9,7 +9,7 @@ It proposes a hexagonal modular structure that isolates domains and data, ideal 
 the ability of seamless evolution into microservices.
 This architecture allows for flexible, maintainable, and scalable software development.
 
-# Reference Architecture
+# Pattern Concept
 
 ## Key ideas
 
@@ -18,10 +18,33 @@ This architecture allows for flexible, maintainable, and scalable software devel
 * Enclose domain model and logic in separate modules
 * Structure each module as a hexagon
 
-## Example implementation
+The Honeycomb Monolith pattern is a forward-thinking approach in the design of monolithic applications, where
+Domain-Driven Design principles are integrated with the adaptable Hexagonal Architecture. This pattern distinctly
+identifies and separates business domains along with their associated data, organizing the application into modules,
+each representing an individual domain. These components are structured as hexagons to isolate the domain logic from
+external communication interfaces. This symbolically represents the pattern’s core philosophy: ike a honeycomb’s
+hexagonal cells, each module in this pattern is self-contained and poised for an effortless transition into an
+independent microservice.
+
+## Benefits
+
+* Cohesive modularity
+* Agile and smooth transition to microservices (domain and data not affected)
+* Decreased long-term maintenance cost
+* Ease of integration with external systems
+
+## Considerations
+
+* Requires domain modeling
+* Distributed transaction (across domains)
+* Governance effort
+* Model duplication and extensive mapping
+
+# Example implementation
 
 This project provides an example implementation of the [Opora API](https://tarasshablii.github.io/opora-api/). The
 application enables managing humanitarian Initiatives to address urgent crises and provide aid to those in need.
+A relevant topic amid the ongoing russian invasion in Ukraine (see [Support Ukraine](#support-ukraine) section).
 Initiatives are managed by Sponsors - either individuals or organizations. Application also provides means to store and
 retrieve Media. All inbound requests come through the uniform API provided by API Gateway domainless module. For the
 sake of technological diversity Initiatives are stored in MongoDB, Media files are stored in MinIO with metadata in
@@ -80,3 +103,14 @@ docker compose --profile monolith --profile microservices up -d
   use `docker compose --profile monolith --profile microservices down -v`
 * To stop dependencies, use `docker compose down -v`
 * To stop Spring Boot applications running in shell, kill each job via `control+c` or `Ctrl+c`
+
+# Support Ukraine
+
+As Ukraine fights for its survival and for the values of freedom and self-determination we need your support!
+Our warriors show that the only way to stop the russian terroristic invasion is on the battlefield.
+Please, help us fight for our freedom and stop the spread of russian tyranny.
+Donate to any of these trusted funds and spread the word:
+
+* [UNITED24](https://u24.gov.ua/)
+* [Come Back Alive](https://savelife.in.ua/en/)
+* [Serhiy Prytula Charity Foundation](https://prytulafoundation.org/en)

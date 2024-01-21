@@ -2,7 +2,6 @@ package dev.tarasshablii.opora.monolith.initiatives.provider.persistence.entity;
 
 import dev.tarasshablii.opora.monolith.initiatives.domain.model.Contact;
 import dev.tarasshablii.opora.monolith.initiatives.domain.model.InitiativeItem;
-import dev.tarasshablii.opora.monolith.initiatives.domain.model.InitiativeSponsor;
 import dev.tarasshablii.opora.monolith.initiatives.domain.model.InitiativeStatus;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +25,7 @@ public class InitiativeEntity {
     private UUID media;
     private InitiativeStatus status;
     private Boolean isUrgent;
-    private InitiativeSponsor sponsor;
+    private InitiativeSponsorEntity sponsor;
     private List<Contact> contacts;
     private List<DirectionsEntity> directions;
     private List<InitiativeItem> items;
