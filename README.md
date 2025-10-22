@@ -9,6 +9,8 @@ It proposes a hexagonal modular structure that isolates domains and data, ideal 
 the ability of seamless evolution into microservices.
 This architecture allows for flexible, maintainable, and scalable software development.
 
+Check out my [master's thesis](https://er.auk.edu.ua/items/18c552cd-3e35-4b5b-9f43-690b069fc4f4) for details.
+
 # Pattern Concept
 
 ## Key ideas
