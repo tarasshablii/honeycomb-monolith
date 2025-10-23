@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
 
   monolith:
@@ -141,7 +139,7 @@ services:
       POSTGRES_USER: sponsors_user
       POSTGRES_DB: sponsors
     volumes:
-      - sponsors-db:/var/lib/postgresql/data
+      - sponsors-db:/var/lib/postgresql
     networks:
       - opora-network
 
@@ -156,7 +154,7 @@ services:
       POSTGRES_USER: media_user
       POSTGRES_DB: media_metadata
     volumes:
-      - media-metadata-db:/var/lib/postgresql/data
+      - media-metadata-db:/var/lib/postgresql
     networks:
       - opora-network
 

@@ -1,4 +1,4 @@
-FROM amazoncorretto:17.0.9
+FROM amazoncorretto:21
 
 COPY microservices/initiatives/build/libs/honeycomb-monolith-initiatives-service.jar /app/initiatives-service.jar
 

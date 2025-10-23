@@ -20,12 +20,10 @@ import static java.util.Collections.singletonList;
 public class SponsorTestUtils {
 
     public static final UUID SPONSOR_ID = UUID.fromString("0101fa18-17b7-4c29-91bc-1238f555499d");
-    public static final UUID CONTACT_ID = UUID.fromString("e5298900-fa9f-4a11-a0e5-6dea1eabccef");
     public static final UUID MEDIA_ID = UUID.fromString("28f9ff91-773a-49c6-bdbb-0536571d6d99");
 
     public static SponsorEntity defaultSponsorEntity() {
         return SponsorEntity.builder()
-                .id(SPONSOR_ID)
                 .userName("userName")
                 .name("name")
                 .description("description")
@@ -36,7 +34,6 @@ public class SponsorTestUtils {
 
     public static ContactEntity defaultContactEntity() {
         return ContactEntity.builder()
-                .id(CONTACT_ID)
                 .firstName("firstName")
                 .lastName("lastName")
                 .email("email@snail.con")
@@ -57,10 +54,6 @@ public class SponsorTestUtils {
                 .number("number")
                 .types(Set.of(PhoneType.SIGNAL, PhoneType.WHATSAPP))
                 .build();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(UUID.randomUUID());
     }
 
     public static Sponsor defaultSponsor() {

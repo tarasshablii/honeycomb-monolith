@@ -41,11 +41,12 @@ springBoot {
 }
 
 jar {
-    // Spring Boot 2.5.0+ creates two JAR files: {ARCHIVE_BASE_NAME}.jar and {ARCHIVE_BASE_NAME}-plain.jar.
-    // This forces gradle to just create one `{ARCHIVE_BASE_NAME}.jar`
     enabled = false
-    archivesBaseName = "$rootProject.name-media-service"
-    project.version = ""
+}
+
+bootJar {
+    archiveBaseName = "$rootProject.name-media-service"
+    archiveVersion = ""
 }
 
 task openApiGenerateServer(type: GenerateTask) {
@@ -67,7 +68,6 @@ task openApiGenerateServer(type: GenerateTask) {
             useJakartaEe                        : "true",
             additionalModelTypeAnnotations      :
                     """
-                        @lombok.Builder
                         @lombok.extern.jackson.Jacksonized
                         @com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
                     """
