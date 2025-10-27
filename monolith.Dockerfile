@@ -1,4 +1,4 @@
-FROM amazoncorretto:17.0.9
+FROM amazoncorretto:21
 
 COPY monolith/build/libs/honeycomb-monolith-monolith.jar /app/opora-backend.jar
 

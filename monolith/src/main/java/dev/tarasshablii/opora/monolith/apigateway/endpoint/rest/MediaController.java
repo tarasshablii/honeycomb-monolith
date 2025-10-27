@@ -36,10 +36,7 @@ public class MediaController implements MediaApi {
                 .build();
         UUID id = mediaProvider.create(mediaDto);
 
-        return ResponseEntity.status(CREATED)
-                .body(MediaResponseDto.builder()
-                        .id(id)
-                        .build());
+        return ResponseEntity.status(CREATED).body(new MediaResponseDto().id(id));
     }
 
     @Override

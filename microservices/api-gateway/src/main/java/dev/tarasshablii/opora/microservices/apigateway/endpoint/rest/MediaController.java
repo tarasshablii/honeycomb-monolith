@@ -33,7 +33,7 @@ public class MediaController implements MediaApi {
         MediaDto mediaDto = MediaDto.builder().media(body).contentType(request.getHeader(HttpHeaders.CONTENT_TYPE)).build();
         UUID id = mediaProvider.create(mediaDto);
 
-        return ResponseEntity.status(CREATED).body(MediaResponseDto.builder().id(id).build());
+        return ResponseEntity.status(CREATED).body(new MediaResponseDto().id(id));
     }
 
     @Override

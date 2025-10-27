@@ -59,7 +59,7 @@ PostgreSQL, and Sponsors reside in a separate instance of PostgreSQL.
 
 Before you begin, ensure you have the following installed:
 
-* JDK 17 (Amazon Corretto 17 recommended)
+* JDK 21 (Amazon Corretto 21 recommended)
 * Docker and Docker Compose
 
 ### Build

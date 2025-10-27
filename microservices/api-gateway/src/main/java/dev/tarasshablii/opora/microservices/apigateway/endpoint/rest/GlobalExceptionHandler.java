@@ -51,36 +51,32 @@ public class GlobalExceptionHandler {
         log.error(exception.getMessage(), exception);
         return ResponseEntity.status(SERVICE_UNAVAILABLE)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(ErrorResponseDto.builder()
+                .body(new ErrorResponseDto()
                         .timestamp(Instant.now())
-                        .message(exception.getMessage())
-                        .build());
+                        .message(exception.getMessage()));
     }
 
     @ExceptionHandler({HttpMessageNotReadableException.class})
     public ResponseEntity<ErrorResponseDto> handleMessageNotReadable(HttpMessageNotReadableException exception) {
         log.error(exception.getMessage(), exception);
         return ResponseEntity.badRequest()
-                .body(ErrorResponseDto.builder()
+                .body(new ErrorResponseDto()
                         .timestamp(Instant.now())
                         .message(INVALID_REQUEST_BODY)
-                        .details(exception.getMessage())
-                        .build());
+                        .details(exception.getMessage()));
     }
 
     @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<ErrorResponseDto> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException exception) {
         log.error(exception.getMessage(), exception);
         var errors = Collections.singletonList(
-                ErrorResponseErrorsInnerDto.builder()
+                new ErrorResponseErrorsInnerDto()
                         .field(exception.getPropertyName())
-                        .message(exception.getMessage())
-                        .build());
-        ErrorResponseDto responseDto = ErrorResponseDto.builder()
+                        .message(exception.getMessage()));
+        ErrorResponseDto responseDto = new ErrorResponseDto()
                 .timestamp(Instant.now())
                 .message("Type mismatch occurred, see errors for details")
-                .errors(errors)
-                .build();
+                .errors(errors);
         return ResponseEntity.badRequest().body(responseDto);
     }
 
@@ -90,11 +86,9 @@ public class GlobalExceptionHandler {
 
         log.debug(exception.getMessage(), exception);
         var errors = exception.getBindingResult().getFieldErrors().stream()
-                .map(error -> ErrorResponseErrorsInnerDto
-                        .builder()
+                .map(error -> new ErrorResponseErrorsInnerDto()
                         .field(error.getField())
-                        .message(error.getDefaultMessage())
-                        .build())
+                        .message(error.getDefaultMessage()))
                 .toList();
         return buildValidationResponse(errors);
     }
@@ -106,10 +100,9 @@ public class GlobalExceptionHandler {
         log.warn(exception.getMessage(), exception);
         return ResponseEntity
                 .badRequest()
-                .body(ErrorResponseDto.builder()
+                .body(new ErrorResponseDto()
                         .timestamp(Instant.now())
-                        .message(UNSUPPORTED_MEDIA_TYPE.name())
-                        .build());
+                        .message(UNSUPPORTED_MEDIA_TYPE.name()));
     }
 
     @ExceptionHandler(WebClientResponseException.BadRequest.class)
@@ -128,10 +121,9 @@ public class GlobalExceptionHandler {
         log.warn("Received {} request for {} endpoint", exception.getMethod(), request.getRequestURI());
         return ResponseEntity
                 .status(METHOD_NOT_ALLOWED)
-                .body(ErrorResponseDto.builder()
+                .body(new ErrorResponseDto()
                         .timestamp(Instant.now())
-                        .message(METHOD_NOT_ALLOWED.name())
-                        .build());
+                        .message(METHOD_NOT_ALLOWED.name()));
     }
 
     @ExceptionHandler({MissingServletRequestParameterException.class})
@@ -139,10 +131,9 @@ public class GlobalExceptionHandler {
             MissingServletRequestParameterException exception) {
         log.error(exception.getMessage(), exception);
         var errors = Collections.singletonList(
-                ErrorResponseErrorsInnerDto.builder()
+                new ErrorResponseErrorsInnerDto()
                         .field(exception.getParameterName())
-                        .message("Request parameter is mandatory")
-                        .build());
+                        .message("Request parameter is mandatory"));
         return buildValidationResponse(errors);
     }
 
@@ -152,11 +143,9 @@ public class GlobalExceptionHandler {
         log.warn(exception.getMessage());
         var errors = exception.getConstraintViolations()
                 .stream()
-                .map(violation -> ErrorResponseErrorsInnerDto
-                        .builder()
+                .map(violation -> new ErrorResponseErrorsInnerDto()
                         .field(violation.getPropertyPath().toString())
-                        .message(violation.getMessage())
-                        .build())
+                        .message(violation.getMessage()))
                 .toList();
         return buildValidationResponse(errors);
     }
@@ -165,11 +154,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseDto> handleGeneralExceptions(Exception exception) {
         log.error(exception.getMessage(), exception);
         return ResponseEntity.status(INTERNAL_SERVER_ERROR)
-                .body(ErrorResponseDto.builder()
+                .body(new ErrorResponseDto()
                         .timestamp(Instant.now())
                         .message("Internal server error occurred")
-                        .details(exception.getMessage())
-                        .build());
+                        .details(exception.getMessage()));
     }
 
     @ExceptionHandler(WebClientResponseException.InternalServerError.class)
@@ -181,11 +169,10 @@ public class GlobalExceptionHandler {
 
     private static ResponseEntity<ErrorResponseDto> buildValidationResponse(List<ErrorResponseErrorsInnerDto> errors) {
         return ResponseEntity.badRequest()
-                .body(ErrorResponseDto.builder()
+                .body(new ErrorResponseDto()
                         .timestamp(Instant.now())
                         .message(REQUEST_FAILED_VALIDATION)
-                        .errors(errors)
-                        .build());
+                        .errors(errors));
     }
 
 }

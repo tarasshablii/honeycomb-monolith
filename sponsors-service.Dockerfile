@@ -1,4 +1,4 @@
-FROM amazoncorretto:17.0.9
+FROM amazoncorretto:21
 
 COPY microservices/sponsors/build/libs/honeycomb-monolith-sponsors-service.jar /app/sponsors-service.jar
 
